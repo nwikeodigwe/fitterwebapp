@@ -5,12 +5,15 @@ import Collections from "./collection";
 import Styles from "./styles";
 import Items from "./Items";
 import Account from "./account";
+import Search from "./search";
 
 const Index = () => {
   return (
     <NavigationMenu.Root className="absolute top-0 left-0 right-0 border-b border-black-900 py-4 bg-white px-5">
       <NavigationMenu.List className="container flex items-center justify-between px-10 ">
-        <NavigationMenu.Item>Search</NavigationMenu.Item>
+        <NavigationMenu.Item>
+          <Search />
+        </NavigationMenu.Item>
         <div className="flex gap-5 items-center">
           <NavigationMenu.Item>
             <Link
