@@ -17,7 +17,7 @@ const Index = () => {
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger className="hover:underline transition-all ease-in-out duration-200">
-        <button className="p-0">Location preferences</button>
+        Location preferences
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0" />

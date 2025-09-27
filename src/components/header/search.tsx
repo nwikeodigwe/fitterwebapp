@@ -32,10 +32,11 @@ const recent = ["Jordan 4", "Dunks", "Sp5der", "Ja 3", "Off white"];
 const Search = () => {
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger>
-        <button className="cursor-pointer p-0" aria-label="Customise options">
-          Search
-        </button>
+      <DropdownMenu.Trigger
+        className="cursor-pointer p-0"
+        aria-label="Customise options"
+      >
+        Search
       </DropdownMenu.Trigger>
       <DropdownMenu.Portal>
         <DropdownMenu.Content className="w-[400px] bg-white border border-gray-900 -translate-y-[25px] translate-x-3">
