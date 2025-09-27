@@ -1,0 +1,49 @@
+{
+  "brands": {
+    "Luxury": ["Gucci", "Prada", "Louis Vuitton", "Chanel"],
+    "Sportswear": ["Nike", "Adidas", "Puma", "Under Armour"],
+    "Casual": ["Levi's", "H&M", "Zara", "Uniqlo"],
+    "Premium": ["Converse", "Vans", "New Balance", "Reebok"]
+  },
+  "collections": {
+    "Summer 2024": ["Beachwear", "Sunglasses", "Hats"],
+    "Winter 2024": ["Coats", "Boots", "Scarves"],
+    "Spring 2024": ["Light Jackets", "Sneakers", "Floral Dresses"],
+    "Fall 2024": ["Sweaters", "Jeans", "Ankle Boots"],
+    "Athleisure": ["Yoga Pants", "Hoodies", "Running Shoes"],
+    "Formal Wear": ["Suits", "Evening Gowns", "Tuxedos"],
+    "Streetwear": ["Graphic Tees", "Sneakers", "Hats"],
+    "Accessories": ["Watches", "Bags", "Jewelry"],
+    "Special Editions": [
+      "Collaborations",
+      "Limited Releases",
+      "Exclusive Drops"
+    ],
+    "New Arrivals": ["Latest Trends", "Just In", "Fresh Styles"]
+  },
+  "styles": {
+    "Casual": ["T-Shirts", "Jeans", "Sneakers"],
+    "Formal": ["Suits", "Dresses", "Dress Shoes"],
+    "Athletic": ["Activewear", "Running Shoes", "Sports Accessories"],
+    "Business Casual": ["Blazers", "Chinos", "Loafers"],
+    "Streetwear": ["Hoodies", "Graphic Tees", "Sneakers"],
+    "Vintage": ["Retro Tees", "High-Waisted Jeans", "Classic Sneakers"],
+    "Bohemian": ["Flowy Dresses", "Fringe Accessories", "Ankle Boots"],
+    "Preppy": ["Polo Shirts", "Khakis", "Boat Shoes"],
+    "Edgy": ["Leather Jackets", "Ripped Jeans", "Combat Boots"],
+    "Chic": ["Blouses", "Tailored Pants", "Heels"]
+  },
+  "items": {
+    "T-Shirts": ["Graphic Tees", "Plain Tees", "Long Sleeve Tees"],
+    "Jeans": ["Skinny Jeans", "Bootcut Jeans", "High-Waisted Jeans"],
+    "Sneakers": ["Running Shoes", "Casual Sneakers", "High-Tops"],
+    "Dresses": ["Casual Dresses", "Evening Dresses", "Summer Dresses"],
+    "Suits": ["Business Suits", "Tuxedos", "Casual Blazers"],
+    "Activewear": ["Yoga Pants", "Sports Bras", "Hoodies"],
+    "Blazers": ["Formal Blazers", "Casual Blazers", "Patterned Blazers"],
+    "Hoodies": ["Pullover Hoodies", "Zip-Up Hoodies", "Graphic Hoodies"],
+    "Leather Jackets": ["Biker Jackets", "Bomber Jackets", "Moto Jackets"],
+    "Blouses": ["Silk Blouses", "Cotton Blouses", "Patterned Blouses"],
+    "Accessories": ["Watches", "Bags", "Jewelry"]
+  }
+}

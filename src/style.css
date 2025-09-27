@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Goat";
+  font-style: normal;
+  font-weight: 200 700;
+  font-display: swap;
+  src: url("./assets/fonts/goat.woff2");
+}
+
+@theme {
+  --font-goat: "Goat";
+  --gray-50: #f4f4f4;
+  --gray-100: #dedede;
+  --gray-200: #bfbfbf;
+  --gray-300: #a3a3a3;
+  --gray-400: #8a8a8a;
+  --gray-500: #727272;
+  --gray-600: #5b5b5b;
+  --gray-700: #454545;
+  --gray-800: #303030;
+  --gray-900: #1c1c1c;
+  --gray-950: #0c0c0c;
+}
+
+@layer base {
+  body {
+    @apply font-goat text-xs;
+  }
+  .container {
+    @apply max-w-5xl mx-auto px-4;
+  }
+}
