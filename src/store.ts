@@ -14,6 +14,10 @@ import storage from "redux-persist/lib/storage";
 import rootReducer from "./features";
 import { userApi } from "./features/user/service";
 import { authApi } from "./features/auth/service";
+import { brandApi } from "./features/brand/service";
+import { collectionApi } from "./features/collection/service";
+import { styleApi } from "./features/style/service";
+import { itemApi } from "./features/item/service";
 
 const persistConfig = {
   key: "root",
@@ -31,7 +35,11 @@ const store = configureStore({
       },
     })
       .concat(userApi.middleware)
-      .concat(authApi.middleware),
+      .concat(authApi.middleware)
+      .concat(brandApi.middleware)
+      .concat(collectionApi.middleware)
+      .concat(styleApi.middleware)
+      .concat(itemApi.middleware),
 });
 
 export const persistor = persistStore(store);

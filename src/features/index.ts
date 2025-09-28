@@ -1,8 +1,12 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import userReducer from "./user/slice";
+import authReducer from "./auth/slice";
 import { userApi } from "./user/service";
 import { authApi } from "./auth/service";
-import authReducer from "./auth/slice";
+import { brandApi } from "./brand/service";
+import { collectionApi } from "./collection/service";
+import { styleApi } from "./style/service";
+import { itemApi } from "./item/service";
 // import eventReducer from "./event/slice";
 // import addressReducer from "./address/slice";
 // import preferenceReducer from "./preferences/slice";
@@ -18,6 +22,10 @@ const rootReducer = combineReducers({
   //   cart: cartReducer,
   [userApi.reducerPath]: userApi.reducer,
   [authApi.reducerPath]: authApi.reducer,
+  [brandApi.reducerPath]: brandApi.reducer,
+  [collectionApi.reducerPath]: collectionApi.reducer,
+  [styleApi.reducerPath]: styleApi.reducer,
+  [itemApi.reducerPath]: itemApi.reducer,
 });
 
 export default rootReducer;
