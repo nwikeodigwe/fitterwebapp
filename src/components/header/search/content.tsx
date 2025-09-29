@@ -15,7 +15,6 @@ type Search = {
 const Content = () => {
   const dispatch = useDispatch();
   const search = useSelector((state: RootState) => state.search);
-  console.info(search);
 
   const [recent, setRecent] = useState<string[]>([]);
   const [latest, setLatest] = useState<Search[] | []>([]);
@@ -53,7 +52,7 @@ const Content = () => {
   }, [search]);
 
   const context = useContext(SearchContext);
-  const { query, result, isLoading, error, data } = context || {};
+  const { query, result } = context || {};
   return (
     <>
       <div className="flex flex-wrap gap-2 p-3">

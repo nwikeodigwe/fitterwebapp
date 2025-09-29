@@ -7,10 +7,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import Search, { type Inputs } from "./schema";
 import { SearchContext } from "./context";
+import type { Result } from "./result.types";
 
 const Index = () => {
-  const [result, setResult] = useState<unknown[] | null>(null);
-  const [searchQuery, { isLoading, error, data }] = useSearchMutation();
+  const [result, setResult] = useState<Result | null>(null);
+  const [searchQuery, { isLoading, error }] = useSearchMutation();
   const { register, watch } = useForm<Inputs>({
     defaultValues: { query: "" },
     resolver: zodResolver(Search),
@@ -22,12 +23,9 @@ const Index = () => {
 
   const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    console.log(value);
     try {
       const { data, error } = await searchQuery({ q: value });
-      console.log(error);
       if (!error) setResult(data.result);
-      console.log(data.result);
     } catch (err) {
       console.error(err);
     }
@@ -43,9 +41,7 @@ const Index = () => {
       </DropdownMenu.Trigger>
       <DropdownMenu.Portal>
         <DropdownMenu.Content className="w-[400px] bg-white border border-gray-900 -translate-y-[25px] translate-x-3">
-          <SearchContext.Provider
-            value={{ query, result, data, isLoading, error }}
-          >
+          <SearchContext.Provider value={{ query, result, isLoading, error }}>
             <Input
               {...register("query", {
                 onChange: onChange,
