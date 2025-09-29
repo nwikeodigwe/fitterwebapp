@@ -22,10 +22,15 @@ const Input = ({ className, icon, error, ref, ...props }: InputProps) => {
           className="border-none outline-none focus:outline-none"
           {...props}
         />
-        {error && (
-          <IoAlertCircleOutline className="absolute right-4 top-1/3 text-2xl text-red-400" />
-        )}
+
+        <IoAlertCircleOutline
+          className={clsx(
+            "absolute right-4 top-1/2 -translate-y-1/2 text-2xl text-red-400",
+            !error && "hidden"
+          )}
+        />
       </div>
+      <p className="text-red-500 text-[10px]">{error}</p>
     </div>
   );
 };

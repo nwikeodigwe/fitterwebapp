@@ -12,4 +12,5 @@ const User = z.object({
   subscribe: z.boolean().default(false),
 });
 
+export type Inputs = z.infer<typeof User>;
 export default User;

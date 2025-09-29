@@ -27,7 +27,7 @@ const Form = () => {
     defaultValues: { name: "", email: "", password: "", subscribe: false },
     resolver: zodResolver(User),
     mode: "onChange",
-    reValidateMode: "onBlur",
+    reValidateMode: "onSubmit",
   });
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
@@ -41,6 +41,7 @@ const Form = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
+      <h3 className="font-medium">Create account</h3>
       <Fieldset.Root className="flex flex-col gap-1">
         <Fieldset.Label htmlFor="email">
           First name and Last name

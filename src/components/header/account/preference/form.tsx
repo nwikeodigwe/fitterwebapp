@@ -1,6 +1,6 @@
 import Button from "@/components/button";
 import Select from "@/components/select";
-import Preference from "./schema";
+import Preference, { type Inputs } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useDispatch } from "react-redux";
@@ -8,11 +8,6 @@ import { setPreference } from "@/features/preferences/slice";
 
 const location = ["Netherlands", "Nigeria", "United States"];
 const currency = ["USD", "NGN", "EUR"];
-
-type Inputs = {
-  location: string;
-  currency: string;
-};
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -25,7 +20,7 @@ const Form = () => {
     defaultValues: { location: "", currency: "" },
     resolver: zodResolver(Preference),
     mode: "onChange",
-    reValidateMode: "onBlur",
+    reValidateMode: "onSubmit",
   });
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
@@ -40,6 +35,7 @@ const Form = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-3 mt-3"
     >
+      <h3 className="font-medium">Preference</h3>
       <fieldset className="space-x-2">
         <label htmlFor="Location">Location</label>
         <Select

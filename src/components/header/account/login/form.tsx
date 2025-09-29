@@ -6,6 +6,8 @@ import Auth from "./schema";
 import { useSignInUserMutation } from "@/features/auth/service";
 import { useDispatch } from "react-redux";
 import { setTokens } from "@/features/auth/slice";
+import { useContext } from "react";
+import { AccountContext } from "../context";
 
 interface Inputs {
   email: string;
@@ -15,6 +17,19 @@ interface Inputs {
 const Form = () => {
   const dispatch = useDispatch();
   const [signInUser, { isLoading }] = useSignInUserMutation();
+  const context = useContext(AccountContext);
+  const { setIsActive } = context || {};
+
+  const handleReset = () => {
+    if (setIsActive)
+      setIsActive({
+        login: false,
+        register: false,
+        reset: true,
+        location: false,
+      });
+  };
+
   const {
     register,
     handleSubmit,
@@ -23,7 +38,7 @@ const Form = () => {
     defaultValues: { email: "", password: "" },
     resolver: zodResolver(Auth),
     mode: "onChange",
-    reValidateMode: "onBlur",
+    reValidateMode: "onSubmit",
   });
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
@@ -37,6 +52,7 @@ const Form = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
+      <h3 className="font-semibold">Login</h3>
       <Fieldset.Root className="flex flex-col gap-1">
         <Fieldset.Label htmlFor="email">Email</Fieldset.Label>
         <Fieldset.Input
@@ -57,6 +73,16 @@ const Form = () => {
           className="border border-gray-900 p-3"
         />
       </Fieldset.Root>
+      <p>
+        Forgot password?{" "}
+        <button
+          onClick={handleReset}
+          className="hover:underline duration-200 transition-all cursor-pointer"
+        >
+          Reset
+        </button>
+      </p>
+
       <Button
         disabled={isSubmitting || !isValid || isLoading}
         type="submit"

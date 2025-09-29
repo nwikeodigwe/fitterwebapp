@@ -1,22 +1,37 @@
-import { useState, useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { Dialog } from "radix-ui";
 import { Link } from "react-router";
 import Form from "./form";
+import { AccountContext } from "../context";
 
 const Index = () => {
-  const [open, setOpen] = useState(false);
+  const context = useContext(AccountContext);
+  const { login, setIsActive } = context || {};
+
+  const handleChange = () => {
+    if (setIsActive) setIsActive((prev) => ({ ...prev, login: !prev.login }));
+  };
+
+  const handleRegisterOpen = () => {
+    if (setIsActive)
+      setIsActive({
+        login: false,
+        register: true,
+        reset: false,
+        location: false,
+      });
+  };
 
   useEffect(() => {
-    console.log(open);
-    if (open) {
+    if (login) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
     }
-  }, [open]);
+  }, [login]);
 
   return (
-    <Dialog.Root open={open} onOpenChange={setOpen}>
+    <Dialog.Root open={login} onOpenChange={handleChange}>
       <Dialog.Trigger className="hover:underline transition-all ease-in-out duration-200">
         Login
       </Dialog.Trigger>
@@ -28,21 +43,26 @@ const Index = () => {
             Login to your account
           </Dialog.Description>
           <Form />
-          <p className="text-center mt-5">Create Account</p>
+          <button
+            onClick={handleRegisterOpen}
+            className="text-center mt-5 hover:underline duration-200 transition-all w-full"
+          >
+            Create Account
+          </button>
           <p className="text-center text-[10px] text-gray-700 mt-5">
             By proceeding, you agree to the{" "}
             <Link to="/privacy">privacy policy</Link> and{" "}
             <Link to="/terms">terms of use</Link>
           </p>
-          <Dialog.Close asChild>
-            <button
-              aria-labelledby="Close button"
-              className="absolute top-3 right-3 p-0"
-              aria-label="Close"
-            >
-              Close
-            </button>
-          </Dialog.Close>
+
+          <button
+            onClick={handleChange}
+            aria-labelledby="Close button"
+            className="absolute top-3 right-3 p-0"
+            aria-label="Close"
+          >
+            Close
+          </button>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

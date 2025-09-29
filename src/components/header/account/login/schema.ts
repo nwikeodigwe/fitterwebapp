@@ -10,4 +10,5 @@ const Auth = z.object({
     .min(6, "Password is should be a minimum of 6 characters"),
 });
 
+export type Inputs = z.infer<typeof Auth>;
 export default Auth;

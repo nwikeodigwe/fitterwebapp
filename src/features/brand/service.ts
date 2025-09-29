@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "/api/brand/",
+  baseUrl: `${import.meta.env.VITE_BASE_API_URL}/brand`,
 });
 
 export const brandApi = createApi({
@@ -9,16 +9,20 @@ export const brandApi = createApi({
   baseQuery: baseQuery,
   endpoints: (builder) => ({
     getBrands: builder.query({
-      query: () => "",
+      query: () => "/",
       keepUnusedDataFor: 60,
     }),
     getBrand: builder.query({
-      query: (brand) => brand,
+      query: (brand) => `/${brand}`,
+      keepUnusedDataFor: 60,
+    }),
+    getBrandTags: builder.query({
+      query: () => "/tags",
       keepUnusedDataFor: 60,
     }),
     createBrand: builder.mutation({
       query: (data) => ({
-        url: "",
+        url: "/",
         method: "POST",
         body: data,
         headers: {
@@ -28,7 +32,7 @@ export const brandApi = createApi({
     }),
     updateBrand: builder.mutation({
       query: (data) => ({
-        url: data.brand,
+        url: `${data.brand}`,
         method: "PATCH",
         body: data,
         headers: {
@@ -38,7 +42,7 @@ export const brandApi = createApi({
     }),
     favoriteBrand: builder.mutation({
       query: (data) => ({
-        url: `${data.brand}/favorite`,
+        url: `/${data.brand}/favorite`,
         method: "POST",
         body: data,
         headers: {
@@ -48,7 +52,7 @@ export const brandApi = createApi({
     }),
     unfavoriteBrand: builder.mutation({
       query: (data) => ({
-        url: `${data.brand}/unfavorite`,
+        url: `/${data.brand}/unfavorite`,
         method: "DELETE",
         body: data,
         headers: {
@@ -58,7 +62,7 @@ export const brandApi = createApi({
     }),
     upvoteBrand: builder.mutation({
       query: (data) => ({
-        url: `${data.brand}/upvote`,
+        url: `/${data.brand}/upvote`,
         method: "PUT",
         body: data,
         headers: {
@@ -68,7 +72,7 @@ export const brandApi = createApi({
     }),
     downvoteBrand: builder.mutation({
       query: (data) => ({
-        url: `${data.brand}/downvote`,
+        url: `/${data.brand}/downvote`,
         method: "PUT",
         body: data,
         headers: {
@@ -78,7 +82,7 @@ export const brandApi = createApi({
     }),
     unvoteBrand: builder.mutation({
       query: (data) => ({
-        url: `${data.brand}/unvote`,
+        url: `/${data.brand}/unvote`,
         method: "PUT",
         body: data,
         headers: {
@@ -88,7 +92,7 @@ export const brandApi = createApi({
     }),
     subscribeToBrand: builder.mutation({
       query: (data) => ({
-        url: `${data.brand}/subscribe`,
+        url: `/${data.brand}/subscribe`,
         method: "POST",
         body: data,
         headers: {
@@ -98,39 +102,39 @@ export const brandApi = createApi({
     }),
     unsubscribefromBrand: builder.mutation({
       query: (data) => ({
-        url: `${data.brand}/unsubscribe`,
+        url: `/${data.brand}/unsubscribe`,
         method: "DELETE",
         body: data,
       }),
     }),
     commentOnBrand: builder.mutation({
       query: (data) => ({
-        url: `${data.brand}/comment`,
+        url: `/${data.brand}/comment`,
         method: "POST",
         body: data,
       }),
     }),
     commentOnComment: builder.mutation({
       query: (data) => ({
-        url: `${data.brand}/comment/${data.comment}`,
+        url: `/${data.brand}/comment/${data.comment}`,
         method: "POST",
         body: data,
       }),
     }),
     getBrandComments: builder.query({
-      query: (brand) => `${brand}/comments`,
+      query: (brand) => `/${brand}/comments`,
       keepUnusedDataFor: 60,
     }),
     deleteComment: builder.mutation({
       query: (data) => ({
-        url: `comment/${data.comment}`,
+        url: `/comment/${data.comment}`,
         method: "DELETE",
         body: data,
       }),
     }),
     deleteBrand: builder.mutation({
       query: (data) => ({
-        url: `${data.brand}`,
+        url: `/${data.brand}`,
         method: "DELETE",
         body: data,
       }),
@@ -141,6 +145,7 @@ export const brandApi = createApi({
 export const {
   useGetBrandsQuery,
   useGetBrandQuery,
+  useGetBrandTagsQuery,
   useCreateBrandMutation,
   useUpdateBrandMutation,
   useFavoriteBrandMutation,

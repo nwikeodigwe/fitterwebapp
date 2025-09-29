@@ -1,12 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Dialog } from "radix-ui";
 import Form from "./form";
+import { AccountContext } from "../context";
 
 const Index = () => {
   const [open, setOpen] = useState(false);
+  const context = useContext(AccountContext);
+
+  const handleChange = () => {
+    setOpen((prev) => !prev);
+  };
 
   useEffect(() => {
-    console.log(open);
+    if (context?.location) setOpen(context?.location);
+  }, [context]);
+
+  useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
     } else {
@@ -15,7 +24,7 @@ const Index = () => {
   }, [open]);
 
   return (
-    <Dialog.Root open={open} onOpenChange={setOpen}>
+    <Dialog.Root open={open} onOpenChange={handleChange}>
       <Dialog.Trigger className="hover:underline transition-all ease-in-out duration-200">
         Location preferences
       </Dialog.Trigger>

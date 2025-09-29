@@ -5,4 +5,5 @@ const Preference = z.object({
   currency: z.string().min(1, "Currency is required"),
 });
 
+export type Inputs = z.infer<typeof Preference>;
 export default Preference;

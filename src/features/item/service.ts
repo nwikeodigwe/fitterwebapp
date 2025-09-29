@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "/api/item/",
+  baseUrl: `${import.meta.env.VITE_BASE_API_URL}/item`,
 });
 
 export const itemApi = createApi({
@@ -9,7 +9,7 @@ export const itemApi = createApi({
   baseQuery: baseQuery,
   endpoints: (builder) => ({
     getItems: builder.query({
-      query: () => "",
+      query: () => "/",
       keepUnusedDataFor: 60,
     }),
     getItem: builder.query({
@@ -17,12 +17,16 @@ export const itemApi = createApi({
       keepUnusedDataFor: 60,
     }),
     getUserItem: builder.query({
-      query: () => "me",
+      query: () => "/me",
+      keepUnusedDataFor: 60,
+    }),
+    getItemTags: builder.query({
+      query: () => "/tags",
       keepUnusedDataFor: 60,
     }),
     createItem: builder.mutation({
       query: (data) => ({
-        url: "",
+        url: "/",
         method: "POST",
         body: data,
         headers: {
@@ -32,7 +36,7 @@ export const itemApi = createApi({
     }),
     updateItem: builder.mutation({
       query: (data) => ({
-        url: data.item,
+        url: `/${data.item}`,
         method: "PATCH",
         body: data,
         headers: {
@@ -42,7 +46,7 @@ export const itemApi = createApi({
     }),
     favoriteItem: builder.mutation({
       query: (data) => ({
-        url: `${data.item}/favorite`,
+        url: `/${data.item}/favorite`,
         method: "POST",
         body: data,
         headers: {
@@ -52,7 +56,7 @@ export const itemApi = createApi({
     }),
     unfavoriteItem: builder.mutation({
       query: (data) => ({
-        url: `${data.item}/unfavorite`,
+        url: `/${data.item}/unfavorite`,
         method: "DELETE",
         body: data,
         headers: {
@@ -62,7 +66,7 @@ export const itemApi = createApi({
     }),
     upvoteItem: builder.mutation({
       query: (data) => ({
-        url: `${data.item}/upvote`,
+        url: `/${data.item}/upvote`,
         method: "PUT",
         body: data,
         headers: {
@@ -72,7 +76,7 @@ export const itemApi = createApi({
     }),
     downvoteItem: builder.mutation({
       query: (data) => ({
-        url: `${data.item}/downvote`,
+        url: `/${data.item}/downvote`,
         method: "PUT",
         body: data,
         headers: {
@@ -82,7 +86,7 @@ export const itemApi = createApi({
     }),
     unvoteCollection: builder.mutation({
       query: (data) => ({
-        url: `${data.item}/unvote`,
+        url: `/${data.item}/unvote`,
         method: "DELETE",
         body: data,
         headers: {
@@ -92,7 +96,7 @@ export const itemApi = createApi({
     }),
     deleteItem: builder.mutation({
       query: (data) => ({
-        url: `${data.item}`,
+        url: `/${data.item}`,
         method: "DELETE",
         body: data,
       }),
@@ -103,6 +107,7 @@ export const itemApi = createApi({
 export const {
   useGetItemQuery,
   useGetItemsQuery,
+  useGetItemTagsQuery,
   useGetUserItemQuery,
   useUpvoteItemMutation,
   useCreateItemMutation,

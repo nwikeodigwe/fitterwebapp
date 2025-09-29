@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "/api/style/",
+  baseUrl: `${import.meta.env.VITE_BASE_API_URL}/style`,
 });
 
 export const styleApi = createApi({
@@ -9,20 +9,24 @@ export const styleApi = createApi({
   baseQuery: baseQuery,
   endpoints: (builder) => ({
     getStyles: builder.query({
-      query: () => "",
+      query: () => "/",
       keepUnusedDataFor: 60,
     }),
     getStyle: builder.query({
-      query: (style) => style,
+      query: (style) => `/${style}`,
+      keepUnusedDataFor: 60,
+    }),
+    getStyleTags: builder.query({
+      query: () => "/tags",
       keepUnusedDataFor: 60,
     }),
     getUserStyle: builder.query({
-      query: () => "me",
+      query: () => "/me",
       keepUnusedDataFor: 60,
     }),
     createStyle: builder.mutation({
       query: (data) => ({
-        url: "",
+        url: "/",
         method: "POST",
         body: data,
         headers: {
@@ -32,7 +36,7 @@ export const styleApi = createApi({
     }),
     commentOnStyle: builder.mutation({
       query: (data) => ({
-        url: `${data.style}/comment`,
+        url: `/${data.style}/comment`,
         method: "POST",
         body: data,
         headers: {
@@ -42,7 +46,7 @@ export const styleApi = createApi({
     }),
     commentOnComment: builder.mutation({
       query: (data) => ({
-        url: `${data.style}/comment/${data.comment}`,
+        url: `/${data.style}/comment/${data.comment}`,
         method: "POST",
         body: data,
         headers: {
@@ -51,7 +55,7 @@ export const styleApi = createApi({
       }),
     }),
     getStyleComment: builder.query({
-      query: (style) => `${style}/comments`,
+      query: (style) => `/${style}/comments`,
       keepUnusedDataFor: 60,
     }),
     updateStyle: builder.mutation({
@@ -66,7 +70,7 @@ export const styleApi = createApi({
     }),
     deleteStyleComment: builder.mutation({
       query: (data) => ({
-        url: `comment/${data.comment}`,
+        url: `/comment/${data.comment}`,
         method: "DELETE",
         body: data,
         headers: {
@@ -76,7 +80,7 @@ export const styleApi = createApi({
     }),
     favoriteStyle: builder.mutation({
       query: (data) => ({
-        url: `${data.style}/favorite`,
+        url: `/${data.style}/favorite`,
         method: "POST",
         body: data,
         headers: {
@@ -86,7 +90,7 @@ export const styleApi = createApi({
     }),
     unfavoriteStyle: builder.mutation({
       query: (data) => ({
-        url: `${data.style}/unfavorite`,
+        url: `/${data.style}/unfavorite`,
         method: "DELETE",
         body: data,
         headers: {
@@ -96,7 +100,7 @@ export const styleApi = createApi({
     }),
     upvoteCollection: builder.mutation({
       query: (data) => ({
-        url: `${data.style}/upvote`,
+        url: `/${data.style}/upvote`,
         method: "PUT",
         body: data,
         headers: {
@@ -106,7 +110,7 @@ export const styleApi = createApi({
     }),
     downvoteCollection: builder.mutation({
       query: (data) => ({
-        url: `${data.style}/downvote`,
+        url: `/${data.style}/downvote`,
         method: "PUT",
         body: data,
         headers: {
@@ -116,7 +120,7 @@ export const styleApi = createApi({
     }),
     unvoteCollection: builder.mutation({
       query: (data) => ({
-        url: `${data.style}/unvote`,
+        url: `/${data.style}/unvote`,
         method: "DELETE",
         body: data,
         headers: {
@@ -126,7 +130,7 @@ export const styleApi = createApi({
     }),
     publishStyle: builder.mutation({
       query: (data) => ({
-        url: `${data.style}/publish`,
+        url: `/${data.style}/publish`,
         method: "PATCH",
         body: data,
         headers: {
@@ -136,7 +140,7 @@ export const styleApi = createApi({
     }),
     unpublishStyle: builder.mutation({
       query: (data) => ({
-        url: `${data.style}/unpublish`,
+        url: `/${data.style}/unpublish`,
         method: "PATCH",
         body: data,
         headers: {
@@ -146,7 +150,7 @@ export const styleApi = createApi({
     }),
     deleteStyle: builder.mutation({
       query: (data) => ({
-        url: `${data.style}`,
+        url: `/${data.style}`,
         method: "DELETE",
         body: data,
       }),
@@ -157,6 +161,7 @@ export const styleApi = createApi({
 export const {
   useCommentOnCommentMutation,
   useCommentOnStyleMutation,
+  useGetStyleTagsQuery,
   useCreateStyleMutation,
   useDeleteStyleCommentMutation,
   useDeleteStyleMutation,

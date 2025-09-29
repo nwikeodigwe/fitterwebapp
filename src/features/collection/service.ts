@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "/api/collection/",
+  baseUrl: `${import.meta.env.VITE_BASE_API_URL}/collection`,
 });
 
 export const collectionApi = createApi({
@@ -15,6 +15,10 @@ export const collectionApi = createApi({
     getCollection: builder.query({
       query: (collection) => collection,
       keepUnusedDataFor: 60,
+    }),
+    getCollectionTags: builder.query({
+      query: () => "/tags",
+      keepUnusedDataFor: 0,
     }),
     getCollectionStyles: builder.query({
       query: (collection) => `${collection}/styles`,
@@ -102,6 +106,7 @@ export const collectionApi = createApi({
 
 export const {
   useCreateCollectionMutation,
+  useGetCollectionTagsQuery,
   useDeleteCollectionMutation,
   useDownvoteCollectionMutation,
   useFavoriteCollectionMutation,

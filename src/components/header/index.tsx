@@ -6,8 +6,67 @@ import Styles from "./styles";
 import Items from "./Items";
 import Account from "./account";
 import Search from "./search";
+import { useEffect, useState } from "react";
+import { useGetBrandTagsQuery } from "@/features/brand/service";
+import { useGetCollectionTagsQuery } from "@/features/collection/service";
+import { useGetItemTagsQuery } from "@/features/item/service";
+
+import type { Tag as Brand } from "@/types/brands/tags";
+import type { Tag as Style } from "@/types/styles/tags";
+import type { Tag as Collection } from "@/types/collections/tags";
+import type { Tag as Item } from "@/types/items/tags";
+import { useGetStyleTagsQuery } from "@/features/style/service";
 
 const Index = () => {
+  const [brandData, setBrandData] = useState<Brand[] | null>(null);
+  const [styleData, setStyleData] = useState<Style[] | null>(null);
+  const [collectionData, setCollectionData] = useState<Collection[] | null>(
+    null
+  );
+  const [itemData, setItemData] = useState<Item[] | null>(null);
+
+  const {
+    data: tagsAndBrand,
+    isLoading: brandsIsLoading,
+    error: brandsError,
+  } = useGetBrandTagsQuery({});
+
+  const {
+    data: tagsAndCollection,
+    isLoading: collectionIsLoading,
+    error: collectionError,
+  } = useGetCollectionTagsQuery({ refetchOnMountOrArgChange: true });
+
+  const {
+    data: tagsAndStyle,
+    isLoading: styleIsLoading,
+    error: styleError,
+  } = useGetStyleTagsQuery({});
+
+  const {
+    data: tagsAndItem,
+    isLoading: itemIsLoading,
+    error: itemError,
+  } = useGetItemTagsQuery({});
+
+  console.log(styleError);
+
+  useEffect(() => {
+    if (tagsAndBrand) setBrandData(tagsAndBrand.tags);
+  }, [tagsAndBrand]);
+
+  useEffect(() => {
+    if (tagsAndCollection) setCollectionData(tagsAndCollection.tags);
+  }, [tagsAndCollection]);
+
+  useEffect(() => {
+    if (tagsAndStyle) setStyleData(tagsAndStyle.tags);
+  }, [tagsAndStyle]);
+
+  useEffect(() => {
+    if (tagsAndItem) setItemData(tagsAndItem.tags);
+  }, [tagsAndItem]);
+
   return (
     <NavigationMenu.Root className="absolute top-0 left-0 right-0 border-b border-black-900 py-4 bg-white px-5">
       <NavigationMenu.List className="container flex items-center justify-between px-10 ">
@@ -28,7 +87,11 @@ const Index = () => {
               Brands
             </NavigationMenu.Trigger>
             <NavigationMenu.Content className="absolute top-5 right-1/2 translate w-[400px] translate-x-1/2 bg-white border border-black-900">
-              <Brands />
+              <Brands
+                data={brandData}
+                isLoading={brandsIsLoading}
+                error={brandsError}
+              />
             </NavigationMenu.Content>
           </NavigationMenu.Item>
           <NavigationMenu.Item>
@@ -36,7 +99,11 @@ const Index = () => {
               Collections
             </NavigationMenu.Trigger>
             <NavigationMenu.Content className="absolute top-5 right-1/2 translate w-[600px] translate-x-1/2 bg-white border border-black-900">
-              <Collections />
+              <Collections
+                data={collectionData}
+                isLoading={collectionIsLoading}
+                error={collectionError}
+              />
             </NavigationMenu.Content>
           </NavigationMenu.Item>
           <NavigationMenu.Item>
@@ -44,7 +111,11 @@ const Index = () => {
               Styles
             </NavigationMenu.Trigger>
             <NavigationMenu.Content className="absolute top-5 right-1/2 translate w-[600px] translate-x-1/2 bg-white border border-black-900">
-              <Styles />
+              <Styles
+                data={styleData}
+                isLoading={styleIsLoading}
+                error={styleError}
+              />
             </NavigationMenu.Content>
           </NavigationMenu.Item>
           <NavigationMenu.Item>
@@ -52,7 +123,11 @@ const Index = () => {
               Items
             </NavigationMenu.Trigger>
             <NavigationMenu.Content className="absolute top-5 right-1/2 translate w-[600px] translate-x-1/2 bg-white border border-black-900">
-              <Items />
+              <Items
+                data={itemData}
+                isLoading={itemIsLoading}
+                error={itemError}
+              />
             </NavigationMenu.Content>
           </NavigationMenu.Item>
         </div>
