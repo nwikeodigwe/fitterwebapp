@@ -9,7 +9,8 @@ export const itemApi = createApi({
   baseQuery: baseQuery,
   endpoints: (builder) => ({
     getItems: builder.query({
-      query: () => "/",
+      query: ({ limit = 10, offset = 0 }) =>
+        `/?limit=${limit}&offset=${offset}`,
       keepUnusedDataFor: 60,
     }),
     getItem: builder.query({

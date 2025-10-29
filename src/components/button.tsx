@@ -3,7 +3,6 @@ import clsx from "clsx";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  className?: string;
 }
 
 const Button = React.memo(({ className, children, ...props }: ButtonProps) => {

@@ -2,7 +2,7 @@ import Newsletter from "./newsletter";
 
 const Footer = () => {
   return (
-    <footer className="absolute bottom-0 left-0 right-0 px-5 py-4 ">
+    <footer className="px-5 py-4 ">
       <div className="flex items-start justify-between">
         <ul className="flex gap-4 text-gray-700">
           <li>About</li>
