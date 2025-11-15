@@ -1,39 +1,28 @@
 import { useEffect, useContext } from "react";
 import { Dialog } from "radix-ui";
-import { Link } from "react-router";
 import Form from "./form";
 import Context from "../context";
 
 const Index = () => {
   const context = useContext(Context);
-  const { login, setIsActive } = context || {};
+  const { collection, setIsActive } = context || {};
 
   const handleChange = () => {
-    if (setIsActive) setIsActive((prev) => ({ ...prev, login: !prev.login }));
-  };
-
-  const handleRegisterOpen = () => {
-    if (setIsActive)
-      setIsActive({
-        login: false,
-        register: true,
-        reset: false,
-        location: false,
-      });
+    if (setIsActive) setIsActive((prev) => ({ ...prev, collection: !prev.collection }));
   };
 
   useEffect(() => {
-    if (login) {
+    if (collection) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
     }
-  }, [login]);
+  }, [collection]);
 
   return (
-    <Dialog.Root open={login} onOpenChange={handleChange}>
+    <Dialog.Root open={collection} onOpenChange={handleChange}>
       <Dialog.Trigger className="hover:underline transition-all ease-in-out duration-200">
-        Login
+        Collection
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0" />
@@ -43,18 +32,6 @@ const Index = () => {
             Login to your account
           </Dialog.Description>
           <Form />
-          <button
-            onClick={handleRegisterOpen}
-            className="text-center mt-5 hover:underline duration-200 transition-all w-full"
-          >
-            Register
-          </button>
-          <p className="text-center text-[10px] text-gray-700 mt-5">
-            By proceeding, you agree to the{" "}
-            <Link to="/privacy">privacy policy</Link> and{" "}
-            <Link to="/terms">terms of use</Link>
-          </p>
-
           <button
             onClick={handleChange}
             aria-labelledby="Close button"

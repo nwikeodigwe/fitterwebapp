@@ -2,10 +2,10 @@ import { useEffect, useContext } from "react";
 import { Dialog } from "radix-ui";
 import { Link } from "react-router";
 import Form from "./form";
-import { AccountContext } from "../context";
+import Context, {initialState} from "../context";
 
 const Index = () => {
-  const context = useContext(AccountContext);
+  const context = useContext(Context);
   const { register, setIsActive } = context || {};
 
   const handleChange = () => {
@@ -13,18 +13,15 @@ const Index = () => {
     setIsActive((prev) => ({ ...prev, register: !prev.register }));
   };
 
-  const handleLoginOpen = () => {
+  const handleOpen = () => {
     if (setIsActive)
       setIsActive(() => ({
+        ...initialState,
         login: true,
-        register: false,
-        reset: false,
-        location: false,
       }));
   };
 
   useEffect(() => {
-    console.log(open);
     if (register) {
       document.body.style.overflow = "hidden";
     } else {
@@ -46,7 +43,7 @@ const Index = () => {
           </Dialog.Description>
           <Form />
           <button
-            onClick={handleLoginOpen}
+            onClick={handleOpen}
             className="text-center mt-5 hover:underline transition-all duration-200 block w-full"
           >
             Login

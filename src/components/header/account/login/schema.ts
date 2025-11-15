@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-const Auth = z.object({
+const Login = z.object({
   email: z
     .string()
     .min(1, "Email is required")
@@ -10,5 +10,5 @@ const Auth = z.object({
     .min(6, "Password is should be a minimum of 6 characters"),
 });
 
-export type Inputs = z.infer<typeof Auth>;
-export default Auth;
+export type Inputs = z.infer<typeof Login>;
+export default Login;

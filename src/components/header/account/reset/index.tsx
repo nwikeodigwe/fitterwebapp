@@ -1,17 +1,17 @@
 import { Dialog } from "radix-ui";
 import Form from "./form";
-import { AccountContext, initialState } from "../context";
+import Context, {initialState} from "../context";
 import { useContext } from "react";
 
 const Index = () => {
-  const context = useContext(AccountContext);
+  const context = useContext(Context);
   const { reset, setIsActive } = context || {};
 
   const handleChange = () => {
     if (setIsActive) setIsActive({ ...initialState, reset: !reset });
   };
 
-  const handleLoginOpen = () => {
+  const handleOpen = () => {
     if (setIsActive) setIsActive({ ...initialState, login: true });
   };
   return (
@@ -33,7 +33,7 @@ const Index = () => {
             Close
           </button>
           <button
-            onClick={handleLoginOpen}
+            onClick={handleOpen}
             className="text-center mt-5 hover:underline duration-200 transition-all w-full"
           >
             Back to login

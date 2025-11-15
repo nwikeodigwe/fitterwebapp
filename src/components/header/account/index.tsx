@@ -2,7 +2,7 @@ import Login from "./login";
 import Register from "./register";
 import Location from "./preference";
 import { useState } from "react";
-import { AccountContext } from "./context";
+import Context from "./context";
 import Reset from "./reset";
 
 type Active = {
@@ -20,14 +20,14 @@ const Index = () => {
   });
 
   return (
-    <AccountContext.Provider value={{ ...active, setIsActive }}>
-      <div className="p-4 space-y-2 flex flex-col items-end">
+    <Context.Provider value={{ ...active, setIsActive }}>
+      <div className="p-4 space-y-2 flex flex-col items-end z-50">
         <Login />
         <Register />
         <Location />
         <Reset />
       </div>
-    </AccountContext.Provider>
+    </Context.Provider>
   );
 };
 

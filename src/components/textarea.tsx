@@ -11,25 +11,23 @@ export interface TextareaProps
 
 const Textarea = ({ error, className, ...props }: TextareaProps) => {
   return (
-    <div
-      className={clsx(
-        "flex flex-col gap-2 border",
-        className,
-        error && "border-red-400"
-      )}
-    >
-      <textarea
-        {...props}
-        className="border-none outline-none h-full text-sm"
-      ></textarea>
-      {error && (
-        <>
-          <div className="absolute right-0 top-0">
-            <IoAlertCircleOutline className="text-red-400" />
-          </div>
-          <p className="text-red-400 text-sm">{error}</p>
-        </>
-      )}
+    <div>
+      <div
+        className={clsx(
+          "flex flex-col gap-2 border relative",
+          className,
+          error && "border-red-400"
+        )}
+      >
+        <textarea
+          {...props}
+          className="border-none outline-none h-full"
+        ></textarea>
+        <div className={clsx("absolute right-0 top-0", !error && "hidden")}>
+          <IoAlertCircleOutline className="absolute right-4 top-1/2 translate-y-1/2 text-2xl text-red-400" />
+        </div>
+      </div>
+      {error && <p className="text-red-500 text-[10px]">{error}</p>}
     </div>
   );
 };

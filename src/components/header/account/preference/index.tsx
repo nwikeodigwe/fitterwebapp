@@ -1,11 +1,11 @@
 import { useState, useEffect, useContext } from "react";
 import { Dialog } from "radix-ui";
 import Form from "./form";
-import { AccountContext } from "../context";
+import Context from "../context";
 
 const Index = () => {
   const [open, setOpen] = useState(false);
-  const context = useContext(AccountContext);
+  const context = useContext(Context);
 
   const handleChange = () => {
     setOpen((prev) => !prev);

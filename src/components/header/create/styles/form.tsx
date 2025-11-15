@@ -1,13 +1,14 @@
-import Context from "../context";
-import { useContext } from "react";
-import Button from "@/components/button";
-import { useDispatch } from "react-redux";
-import Login, {type Inputs} from "./schema";
-import Fieldset from "@/components/fieldset";
-import { setTokens } from "@/features/auth/slice";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import Fieldset from "@/components/fieldset";
+import Button from "@/components/button";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Style, {type Inputs} from "./schema";
 import { useSignInUserMutation } from "@/features/auth/service";
+import { useDispatch } from "react-redux";
+import { setTokens } from "@/features/auth/slice";
+import { useContext } from "react";
+import Context from "../context";
+
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -18,10 +19,10 @@ const Form = () => {
   const handleReset = () => {
     if (setIsActive)
       setIsActive({
-        login: false,
-        register: false,
-        reset: true,
-        location: false,
+        item: false,
+        style: false,
+        brand: true,
+        collection: false,
       });
   };
 
@@ -29,12 +30,12 @@ const Form = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting, isValid },
-  } = useForm<Inputs>({
-    defaultValues: { email: "", password: "", },
-    resolver: zodResolver(Login),
+  } = useForm({
+    defaultValues: Style.parse({}),
+    resolver: zodResolver(Style),
     mode: "onChange",
     reValidateMode: "onSubmit",
-  });
+  } as const);
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
@@ -47,13 +48,13 @@ const Form = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
-      <h3 className="font-semibold">Create account</h3>
+      <h3 className="font-semibold">Create Style</h3>
       <Fieldset.Root className="flex flex-col gap-1">
         <Fieldset.Label htmlFor="email">Email</Fieldset.Label>
         <Fieldset.Input
           type="email"
-          {...register("email")}
-          error={errors.email?.message}
+          {...register("name")}
+          error={errors.name?.message}
           placeholder="Enter your email"
           className="border border-gray-900 p-3"
         />
@@ -81,7 +82,7 @@ const Form = () => {
       <Button
         disabled={isSubmitting || !isValid || isLoading}
         type="submit"
-        className="border border-gray-900 p-3 cursor-pointer uppercase"
+        className="border bg-black text-white p-3 cursor-pointer uppercase"
       >
         Login
       </Button>

@@ -4,6 +4,10 @@ import Input, { type InputProps } from "@/components/input";
 import Button, { type ButtonProps } from "@/components/button";
 import clsx from "clsx";
 import Checkbox, { type CheckboxProps } from "./checkbox";
+import Autocomplete, { type AutocompleteProps } from "./autocomplete";
+import type { MultiselectProps } from "./multiselect";
+import Multiselect from "./multiselect";
+import FileUpload, { type FileUploadProps } from "./fileupload";
 
 interface FieldsetProps {
   className?: string;
@@ -53,12 +57,22 @@ const FieldsetDescription = ({
   className?: string;
 }) => <p className={clsx(className)}>{children}</p>;
 
-const FieldsetInput = ({ className, ...props }: InputProps) => (
-  <Input className={className} {...props} />
+const FieldsetInput = ({ ...props }: InputProps) => <Input {...props} />;
+
+const FieldsetAutocomplete = ({ ...props }: AutocompleteProps) => (
+  <Autocomplete {...props} />
 );
 
-const FieldsetTextarea = ({ className, ...props }: TextareaProps) => (
-  <Textarea className={clsx(className)} {...props} />
+const FieldsetMultiselect = ({ ...props }: MultiselectProps) => (
+  <Multiselect {...props} />
+);
+
+const FieldsetTextarea = ({ ...props }: TextareaProps) => (
+  <Textarea {...props} />
+);
+
+const FieldsetFileupload = ({ ...props }: FileUploadProps) => (
+  <FileUpload {...props} />
 );
 
 const FieldsetError = ({
@@ -104,6 +118,9 @@ const Fieldset = {
   Description: FieldsetDescription,
   Radio: FieldsetRadio,
   Input: FieldsetInput,
+  Autocomplete: FieldsetAutocomplete,
+  Multiselect: FieldsetMultiselect,
+  Fileupload: FieldsetFileupload,
   Checkbox: FieldsetCheckbox,
   Textarea: FieldsetTextarea,
   Button: FieldsetButton,

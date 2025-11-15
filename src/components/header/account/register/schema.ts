@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-const User = z.object({
+const Register = z.object({
   name: z.string().min(3, "Name is required"),
   email: z
     .string()
@@ -12,5 +12,5 @@ const User = z.object({
   subscribe: z.boolean().default(false),
 });
 
-export type Inputs = z.infer<typeof User>;
-export default User;
+export type Inputs = z.infer<typeof Register>;
+export default Register;

@@ -5,6 +5,7 @@ import Collections from "./collection";
 import Styles from "./styles";
 import Items from "./Items";
 import Account from "./account";
+import Create from "./create";
 import Search from "./search";
 import { useEffect, useState } from "react";
 import { useGetBrandTagsQuery } from "@/features/brand/service";
@@ -16,6 +17,7 @@ import type { Tag as Style } from "@/types/styles/tags";
 import type { Tag as Collection } from "@/types/collections/tags";
 import type { Tag as Item } from "@/types/items/tags";
 import { useGetStyleTagsQuery } from "@/features/style/service";
+import { IoIosAdd } from "react-icons/io";
 
 const Index = () => {
   const [brandData, setBrandData] = useState<Brand[] | null>(null);
@@ -69,7 +71,7 @@ const Index = () => {
 
   return (
     <NavigationMenu.Root className="border-b border-black-900 py-4 bg-white px-5">
-      <NavigationMenu.List className="container flex items-center justify-between px-10">
+      <NavigationMenu.List className="flex items-center justify-between">
         <NavigationMenu.Item>
           <Search />
         </NavigationMenu.Item>
@@ -131,15 +133,20 @@ const Index = () => {
             </NavigationMenu.Content>
           </NavigationMenu.Item>
         </div>
-        <div>
+        <div className="flex items-center space-x-3">
           <NavigationMenu.Item>
-            <NavigationMenu.Trigger className="hover:underline transition-all ease-in-out duration-200">
+              
+            <Create />
+          </NavigationMenu.Item>
+
+          {/* <NavigationMenu.Item>
+            <NavigationMenu.Trigger className="hover:underline transition-all ease-in-out duration-200" aria-labelledby="Account">
               Account
             </NavigationMenu.Trigger>
             <NavigationMenu.Content className="absolute top-5 right-5 translate w-[200px] bg-white border border-black-900">
               <Account />
             </NavigationMenu.Content>
-          </NavigationMenu.Item>
+          </NavigationMenu.Item> */}
         </div>
       </NavigationMenu.List>
     </NavigationMenu.Root>

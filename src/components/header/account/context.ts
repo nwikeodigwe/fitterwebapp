@@ -22,4 +22,6 @@ export interface Context {
   >;
 }
 
-export const AccountContext = createContext<Context | null>(null);
+const HeaderAccountContext = createContext<Context | null>(null);
+HeaderAccountContext.displayName = "HeaderAccountContext";
+export default HeaderAccountContext;

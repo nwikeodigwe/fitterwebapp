@@ -1,39 +1,29 @@
 import { useEffect, useContext } from "react";
 import { Dialog } from "radix-ui";
-import { Link } from "react-router";
 import Form from "./form";
 import Context from "../context";
 
 const Index = () => {
   const context = useContext(Context);
-  const { login, setIsActive } = context || {};
+  const { style, setIsActive } = context || {};
 
   const handleChange = () => {
-    if (setIsActive) setIsActive((prev) => ({ ...prev, login: !prev.login }));
+    if (setIsActive) setIsActive((prev) => ({ ...prev, style: !prev.style }));
   };
 
-  const handleRegisterOpen = () => {
-    if (setIsActive)
-      setIsActive({
-        login: false,
-        register: true,
-        reset: false,
-        location: false,
-      });
-  };
 
   useEffect(() => {
-    if (login) {
+    if (style) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
     }
-  }, [login]);
+  }, [style]);
 
   return (
-    <Dialog.Root open={login} onOpenChange={handleChange}>
+    <Dialog.Root open={style} onOpenChange={handleChange}>
       <Dialog.Trigger className="hover:underline transition-all ease-in-out duration-200">
-        Login
+        Style
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0" />
@@ -43,17 +33,6 @@ const Index = () => {
             Login to your account
           </Dialog.Description>
           <Form />
-          <button
-            onClick={handleRegisterOpen}
-            className="text-center mt-5 hover:underline duration-200 transition-all w-full"
-          >
-            Register
-          </button>
-          <p className="text-center text-[10px] text-gray-700 mt-5">
-            By proceeding, you agree to the{" "}
-            <Link to="/privacy">privacy policy</Link> and{" "}
-            <Link to="/terms">terms of use</Link>
-          </p>
 
           <button
             onClick={handleChange}

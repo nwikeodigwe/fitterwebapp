@@ -2,7 +2,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import Fieldset from "@/components/fieldset";
 import Button from "@/components/button";
 import { zodResolver } from "@hookform/resolvers/zod";
-import User from "./schema";
+import Register from "./schema";
 import { LuCheck } from "react-icons/lu";
 import { useDispatch } from "react-redux";
 import { useSignUpUserMutation } from "@/features/auth/service";
@@ -25,7 +25,7 @@ const Form = () => {
     formState: { errors, isSubmitting, isValid },
   } = useForm<Inputs>({
     defaultValues: { name: "", email: "", password: "", subscribe: false },
-    resolver: zodResolver(User),
+    resolver: zodResolver(Register),
     mode: "onChange",
     reValidateMode: "onSubmit",
   });
