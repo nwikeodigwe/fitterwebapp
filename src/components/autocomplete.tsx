@@ -14,7 +14,12 @@ export interface AutocompleteProps extends Omit<InputProps, "onChange"> {
   onChange?: (value: string) => void;
 }
 
-const Autocomplete = ({ className, options, onChange, ...props }: AutocompleteProps) => {
+const Autocomplete = ({
+  className,
+  options,
+  onChange,
+  ...props
+}: AutocompleteProps) => {
   const [query, setQuery] = useState<string>("");
   const [filtered, setFiltered] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -32,8 +37,8 @@ const Autocomplete = ({ className, options, onChange, ...props }: AutocompletePr
       return;
     }
 
-    const filteredOptions = options.filter((option) =>
-      option.toLowerCase().includes(query.toLowerCase()) // use `includes` for better UX
+    const filteredOptions = options.filter(
+      (option) => option.toLowerCase().includes(query.toLowerCase()) // use `includes` for better UX
     );
     setFiltered(filteredOptions);
     setHighlightedIndex(filteredOptions.length > 0 ? 0 : -1);
@@ -42,7 +47,10 @@ const Autocomplete = ({ className, options, onChange, ...props }: AutocompletePr
   // Close on click outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
         setHighlightedIndex(-1);
       }
@@ -87,7 +95,9 @@ const Autocomplete = ({ className, options, onChange, ...props }: AutocompletePr
         break;
       case "ArrowUp":
         e.preventDefault();
-        setHighlightedIndex((prev) => (prev - 1 + filtered.length) % filtered.length);
+        setHighlightedIndex(
+          (prev) => (prev - 1 + filtered.length) % filtered.length
+        );
         break;
       case "Enter":
         e.preventDefault();
@@ -121,7 +131,9 @@ const Autocomplete = ({ className, options, onChange, ...props }: AutocompletePr
         aria-expanded={isOpen}
         aria-controls="autocomplete-list"
         aria-activedescendant={
-          isOpen && highlightedIndex >= 0 ? `option-${highlightedIndex}` : undefined
+          isOpen && highlightedIndex >= 0
+            ? `option-${highlightedIndex}`
+            : undefined
         }
         ref={inputRef}
         {...props}
@@ -137,7 +149,7 @@ const Autocomplete = ({ className, options, onChange, ...props }: AutocompletePr
           id="autocomplete-list"
           role="listbox"
           className={clsx(
-            "absolute top-full left-0 right-0 mt-1 bg-white border max-h-60 overflow-y-auto z-50",
+            "absolute top-full left-0 right-0 bg-white border max-h-60 overflow-y-auto z-50",
             "scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100"
           )}
         >
@@ -151,9 +163,7 @@ const Autocomplete = ({ className, options, onChange, ...props }: AutocompletePr
               onMouseEnter={() => setHighlightedIndex(index)}
               className={clsx(
                 "px-3 py-2 cursor-pointer capitalize",
-                highlightedIndex === index
-                  ? "bg-black/5"
-                  : "hover:bg-gray-100"
+                highlightedIndex === index ? "bg-black/5" : "hover:bg-gray-100"
               )}
             >
               {option}

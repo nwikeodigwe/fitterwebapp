@@ -6,10 +6,8 @@ const Style = z.object({
     .string()
     .min(1, "Email is required")
     .pipe(z.email("Invalid email address")).default(""),
-  password: z
-    .string()
-    .min(6, "Password is should be a minimum of 6 characters").default(""),
-  subscribe: z.boolean().default(false),
+  items: z.array(z.string()).max(100).default([]).optional(),
+  tags: z.array(z.string()).max(10).default([]).optional(),
 });
 
 export type Inputs = z.infer<typeof Style>;

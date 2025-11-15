@@ -32,7 +32,7 @@ const CustomInput = ({
         {icon}
         <input
           ref={ref}
-          className="border-none outline-none focus:outline-none capitalize border"
+          className="border-none outline-none focus:outline-none border"
           {...props}
         />
 

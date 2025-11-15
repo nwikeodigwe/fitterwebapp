@@ -11,7 +11,6 @@ const Index = () => {
     if (setIsActive) setIsActive((prev) => ({ ...prev, style: !prev.style }));
   };
 
-
   useEffect(() => {
     if (style) {
       document.body.style.overflow = "hidden";
@@ -30,10 +29,9 @@ const Index = () => {
         <Dialog.Content className="fixed left-1/2 top-1/2  w-[90vw] max-w-[350px] -translate-x-1/2 -translate-y-1/2 bg-gray1 focus:outline-none data-[state=open]:animate-contentShow border border-gray-900 px-5 py-8 bg-white">
           <Dialog.Title className="sr-only">Login</Dialog.Title>
           <Dialog.Description className="sr-only">
-            Login to your account
+            Create style
           </Dialog.Description>
           <Form />
-
           <button
             onClick={handleChange}
             aria-labelledby="Close button"

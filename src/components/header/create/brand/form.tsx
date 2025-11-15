@@ -1,20 +1,19 @@
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import Fieldset from "@/components/fieldset";
 import Button from "@/components/button";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Brand, {type Inputs} from "./schema";
+import Brand, { type Inputs } from "./schema";
 import { useSignInUserMutation } from "@/features/auth/service";
 import { useDispatch } from "react-redux";
 import { setTokens } from "@/features/auth/slice";
-
 
 const Form = () => {
   const dispatch = useDispatch();
   const [signInUser, { isLoading }] = useSignInUserMutation();
 
-
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors, isSubmitting, isValid },
   } = useForm({
@@ -37,9 +36,9 @@ const Form = () => {
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
       <h3 className="font-semibold">Create Brand</h3>
       <Fieldset.Root className="flex flex-col gap-1">
-        <Fieldset.Label htmlFor="email">Email</Fieldset.Label>
+        <Fieldset.Label htmlFor="email">Name</Fieldset.Label>
         <Fieldset.Input
-          type="email"
+          type="text"
           {...register("name")}
           error={errors.name?.message}
           placeholder="Enter your email"
@@ -47,13 +46,53 @@ const Form = () => {
         />
       </Fieldset.Root>
       <Fieldset.Root className="flex flex-col gap-1">
-        <Fieldset.Label htmlFor="password">Password</Fieldset.Label>
-        <Fieldset.Input
-          type="password"
-          {...register("password")}
-          error={errors.password?.message}
-          placeholder="Enter your password"
+        <Fieldset.Label htmlFor="items">Items</Fieldset.Label>
+        <Controller
+          name="items"
+          control={control}
+          render={({ field }) => (
+            <Fieldset.Multiselect
+              id="items"
+              options={["belt", "shoe", "trouser", "socks", "cap", "marteen"]}
+              {...field}
+              error={errors.tags?.message}
+              placeholder="Type an item name to add"
+              className="border border-gray-900 p-3"
+            />
+          )}
+        />
+      </Fieldset.Root>
+      <Fieldset.Root className="flex flex-col gap-1">
+        <Fieldset.Label htmlFor="password">Description</Fieldset.Label>
+        <Fieldset.Textarea
+          {...register("description")}
+          error={errors.description?.message}
+          placeholder="Enter description for this style"
           className="border border-gray-900 p-3"
+        />
+      </Fieldset.Root>
+      <Fieldset.Root className="flex flex-col gap-1">
+        <Fieldset.Label htmlFor="tags">Tags</Fieldset.Label>
+        <Controller
+          name="tags"
+          control={control}
+          render={({ field }) => (
+            <Fieldset.Multiselect
+              id="tags"
+              options={[
+                "outerwear",
+                "fashion",
+                "street",
+                "luxury",
+                "exclusive",
+                "casual",
+              ]}
+              {...field}
+              error={errors.tags?.message}
+              placeholder="Type a tag or keyword"
+              className="border border-gray-900 p-3"
+            />
+          )}
         />
       </Fieldset.Root>
       <Button
@@ -61,7 +100,7 @@ const Form = () => {
         type="submit"
         className="border bg-black text-white p-3 cursor-pointer uppercase"
       >
-        Login
+        Create
       </Button>
     </form>
   );

@@ -24,22 +24,20 @@ const Item = z.object({
     .array(imageFileSchema)
     .min(1, "At least one image is required.")
     .max(MAX_IMAGES, `Maximum ${MAX_IMAGES} images allowed.`)
-    .default([]).optional(),
+    .default([])
+    .optional(),
 
   name: z
     .string()
     .min(3, "Name must be at least 3 characters.")
     .max(100)
     .default(""),
-
   brand: z.string().min(1, "Brand is required.").max(50).default(""),
-
   description: z
     .string()
     .min(10, "Description must be at least 10 characters.")
     .max(2000)
     .default(""),
-
   releaseYear: z
     .string()
     .regex(/^\d{4}$/, "Must be a valid 4-digit year.")
@@ -53,7 +51,6 @@ const Item = z.object({
         message: "Release year must be between 1800 and next year.",
       }
     ),
-
   tags: z.array(z.string()).max(10).default([]).optional(),
 });
 

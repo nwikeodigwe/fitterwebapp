@@ -1,15 +1,18 @@
 import * as z from "zod";
 
 const Brand = z.object({
-  name: z.string().min(3, "Name is required").default(""),
+  name: z
+    .string()
+    .min(3, "Name must be at least 3 characters.")
+    .max(100)
+    .default(""),
   description: z
     .string()
-    .min(1, "Email is required")
-    .pipe(z.email("Invalid email address")).default(""),
-  password: z
-    .string()
-    .min(6, "Password is should be a minimum of 6 characters").default(""),
-  subscribe: z.boolean().default(false),
+    .min(10, "Description must be at least 10 characters.")
+    .max(2000)
+    .default(""),
+  items: z.array(z.string()).max(100).default([]).optional(),
+  tags: z.array(z.string()).max(10).default([]).optional(),
 });
 
 export type Inputs = z.infer<typeof Brand>;
