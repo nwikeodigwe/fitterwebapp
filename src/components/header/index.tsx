@@ -17,7 +17,6 @@ import type { Tag as Style } from "@/types/styles/tags";
 import type { Tag as Collection } from "@/types/collections/tags";
 import type { Tag as Item } from "@/types/items/tags";
 import { useGetStyleTagsQuery } from "@/features/style/service";
-import { IoIosAdd } from "react-icons/io";
 
 const Index = () => {
   const [brandData, setBrandData] = useState<Brand[] | null>(null);
@@ -135,18 +134,27 @@ const Index = () => {
         </div>
         <div className="flex items-center space-x-3">
           <NavigationMenu.Item>
-              
             <Create />
           </NavigationMenu.Item>
 
-          {/* <NavigationMenu.Item>
-            <NavigationMenu.Trigger className="hover:underline transition-all ease-in-out duration-200" aria-labelledby="Account">
-              Account
+          <NavigationMenu.Item>
+            <Account />
+            {/* <NavigationMenu.Trigger
+              className="hover:underline transition-all ease-in-out duration-200 flex items-center justify-center"
+              aria-labelledby="Account"
+            >
+              <span className="">
+                {!isAuthenticated ? (
+                  <IoPersonOutline className="size-7" />
+                ) : (
+                  "Account"
+                )}
+              </span>
             </NavigationMenu.Trigger>
             <NavigationMenu.Content className="absolute top-5 right-5 translate w-[200px] bg-white border border-black-900">
               <Account />
-            </NavigationMenu.Content>
-          </NavigationMenu.Item> */}
+            </NavigationMenu.Content> */}
+          </NavigationMenu.Item>
         </div>
       </NavigationMenu.List>
     </NavigationMenu.Root>

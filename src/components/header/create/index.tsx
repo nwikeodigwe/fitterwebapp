@@ -20,7 +20,7 @@ const Index = () => {
   return (
     <Context.Provider value={{ ...active, setIsActive }}>
         <DropdownMenu.Root>
-          <DropdownMenu.Trigger className="hover:underline transition-all ease-in-out duration-200 bg-black text-white p-1 flex items-center justify-center" aria-labelledby="Create">
+          <DropdownMenu.Trigger className="hover:underline transition-all ease-in-out duration-200 bg-black text-white size-7 flex items-center justify-center" aria-labelledby="Create">
             <IoIosAdd size={20} />
           </DropdownMenu.Trigger>
           <DropdownMenu.Content className="bg-white border p-2 mt-2 w-40 flex flex-col items-end gap-2 mr-5">

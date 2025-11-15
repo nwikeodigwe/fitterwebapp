@@ -25,7 +25,7 @@ const Index = () => {
 
   return (
     <Dialog.Root open={open} onOpenChange={handleChange}>
-      <Dialog.Trigger className="hover:underline transition-all ease-in-out duration-200">
+      <Dialog.Trigger className="hover:underline transition-all ease-in-out duration-200 p-1">
         Location preferences
       </Dialog.Trigger>
       <Dialog.Portal>

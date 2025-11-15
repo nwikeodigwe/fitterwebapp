@@ -31,7 +31,7 @@ const Index = () => {
 
   return (
     <Dialog.Root open={register} onOpenChange={handleChange}>
-      <Dialog.Trigger className="hover:underline transition-all ease-in-out duration-200">
+      <Dialog.Trigger className="hover:underline transition-all ease-in-out duration-200 p-1">
         Create account
       </Dialog.Trigger>
       <Dialog.Portal>
