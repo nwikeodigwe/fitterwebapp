@@ -1,0 +1,61 @@
+import { Link } from "react-router";
+
+const Side = () => {
+  return (
+    <div className="side">
+      <ul className="flex flex-col items-ends">
+        <li className="text-right">
+          <Link to="#" className="hover:underline">
+            Popular
+          </Link>
+        </li>
+        <li className="text-right">
+          <Link to="#" className="hover:underline">
+            Recent releases
+          </Link>
+        </li>
+        <li className="text-right">
+          <Link to="#" className="hover:underline">
+            New In
+          </Link>
+        </li>
+      </ul>
+      <ul className="flex flex-col items-ends mt-10">
+        <li className="text-right">
+          <Link to="#" className="hover:underline">
+            Brand
+          </Link>
+        </li>
+        <li className="text-right">
+          <Link to="#" className="hover:underline">
+            Bape
+          </Link>
+        </li>
+        <li className="text-right">
+          <Link to="#" className="hover:underline">
+            Lemaire
+          </Link>
+        </li>
+      </ul>
+      <ul className="flex flex-col items-ends mt-5">
+        <li className="text-right">
+          <Link to="#" className="hover:underline">
+            Category
+          </Link>
+        </li>
+        <li className="text-right">
+          <Link to="#" className="hover:underline">
+            Gender
+          </Link>
+        </li>
+        <li className="text-right">
+          <Link to="#" className="hover:underline">
+            Color
+          </Link>
+        </li>
+      </ul>
+    </div>
+  );
+};
+
+export default Side;
