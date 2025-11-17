@@ -2,7 +2,7 @@ import Context from "../context";
 import { useContext } from "react";
 import Button from "@/components/button";
 import { useDispatch } from "react-redux";
-import Login, {type Inputs} from "./schema";
+import Login, { type Inputs } from "./schema";
 import Fieldset from "@/components/fieldset";
 import { setTokens } from "@/features/auth/slice";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -28,9 +28,11 @@ const Form = () => {
   const {
     register,
     handleSubmit,
+    setError,
+    reset,
     formState: { errors, isSubmitting, isValid },
   } = useForm<Inputs>({
-    defaultValues: { email: "", password: "", },
+    defaultValues: { email: "", password: "" },
     resolver: zodResolver(Login),
     mode: "onChange",
     reValidateMode: "onSubmit",
@@ -38,10 +40,16 @@ const Form = () => {
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
-      const response = await signInUser(data).unwrap();
-      dispatch(setTokens({ ...response, isAthenticated: true }));
+      const { login } = await signInUser(data).unwrap();
+      dispatch(setTokens({ ...login, isAthenticated: true }));
+      reset()
+      window.location.reload()
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
-      console.error(err);
+      setError("email", {
+        type: "custom",
+        message: "Invalid login credentials",
+      });
     }
   };
 

@@ -1,12 +1,13 @@
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { useForm, type SubmitHandler, type FieldPath } from "react-hook-form";
 import Fieldset from "@/components/fieldset";
 import Button from "@/components/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Register from "./schema";
 import { LuCheck } from "react-icons/lu";
-import { useDispatch } from "react-redux";
 import { useSignUpUserMutation } from "@/features/auth/service";
-import { setTokens } from "@/features/auth/slice";
+import useToast from "@/hooks/useToast";
+import Context, { initialState } from "../context";
+import { useContext } from "react";
 
 type Inputs = {
   name: string;
@@ -16,12 +17,18 @@ type Inputs = {
 };
 
 const Form = () => {
-  const dispatch = useDispatch();
-  const [signUpUser, { isLoading }] = useSignUpUserMutation();
+  const context = useContext(Context);
+  const { setIsActive } = context || {};
+  const [signUpUser] = useSignUpUserMutation();
+  const { showToast } = useToast();
 
   const {
     register,
     handleSubmit,
+    setError,
+    clearErrors,
+    reset,
+    trigger,
     formState: { errors, isSubmitting, isValid },
   } = useForm<Inputs>({
     defaultValues: { name: "", email: "", password: "", subscribe: false },
@@ -30,12 +37,26 @@ const Form = () => {
     reValidateMode: "onSubmit",
   });
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+  const handleChange = (field: FieldPath<Inputs>) => {
+    trigger(field)
+    clearErrors(field)
+  }
+
+  const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
     try {
-      const response = await signUpUser(data).unwrap();
-      dispatch(setTokens({ ...response, isAthenticated: true }));
+      await signUpUser(data).unwrap();
+      showToast(
+        "success",
+        "A verification email has been sent to your."
+      );
+      if (setIsActive) setIsActive(initialState);
+      reset();
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
-      console.error(err);
+      setError("email", {
+        type: "custom",
+        message: "An unexpected error occured.",
+      });
     }
   };
 
@@ -50,7 +71,7 @@ const Form = () => {
           type="text"
           {...register("name")}
           error={errors.name?.message}
-          disabled={isLoading || isSubmitting}
+          disabled={isSubmitting}
           placeholder="Enter your name"
           className="border border-gray-900 p-3"
         />
@@ -60,8 +81,9 @@ const Form = () => {
         <Fieldset.Input
           type="text"
           {...register("email")}
+          onChange={() => handleChange("email")}
           error={errors.email?.message}
-          disabled={isLoading || isSubmitting}
+          disabled={isSubmitting}
           placeholder="Enter your email address"
           className="border border-gray-900 p-3"
         />
@@ -72,7 +94,7 @@ const Form = () => {
           type="password"
           {...register("password")}
           error={errors.password?.message}
-          disabled={isLoading || isSubmitting}
+          disabled={isSubmitting}
           placeholder="Enter your password"
           className="border border-gray-900 p-3"
         />
@@ -80,7 +102,8 @@ const Form = () => {
       <Fieldset.Root className="flex items-center gap-2">
         <Fieldset.Checkbox
           {...register("subscribe")}
-          disabled={isLoading || isSubmitting}
+          value={"true"}
+          disabled={isSubmitting}
           className="border border-gray-900 size-4 inline-block"
           icon={<LuCheck />}
         />
@@ -89,9 +112,9 @@ const Form = () => {
         </Fieldset.Label>
       </Fieldset.Root>
       <Button
-        disabled={isSubmitting || !isValid || isLoading}
+        disabled={isSubmitting || !isValid}
         type="submit"
-        className="border border-gray-900 p-3 cursor-pointer uppercase"
+        className="border border-gray-900 p-3 disabled:cursor-not-allowed cursor-pointer uppercase"
       >
         Create Account
       </Button>

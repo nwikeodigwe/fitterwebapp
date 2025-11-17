@@ -19,9 +19,6 @@ type Active = {
 };
 const Index = () => {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
-  const state = useSelector((state: RootState) => state);
-
-  console.log(state)
 
   const [active, setIsActive] = useState<Active>({
     login: false,
@@ -29,8 +26,6 @@ const Index = () => {
     reset: false,
     location: false,
   });
-
-  console.log({ isAuthenticated });
 
   return (
     <Context.Provider value={{ ...active, setIsActive }}>
@@ -59,7 +54,7 @@ const Index = () => {
             <Link className="p-1 text-right" to="/dashboard/settings">
               Settings
             </Link>
-            <Link className="p-1 text-right" to="/logoust">
+            <Link className="p-1 text-right" to="/logout">
               Logout
             </Link>
           </div>

@@ -2,6 +2,7 @@ import { combineReducers } from "@reduxjs/toolkit";
 import userReducer from "./user/slice";
 import authReducer from "./auth/slice";
 import searchReducer from "./search/slice";
+import preferenceReducer from "./preferences/slice";
 import { userApi } from "./user/service";
 import { authApi } from "./auth/service";
 import { brandApi } from "./brand/service";
@@ -9,6 +10,7 @@ import { collectionApi } from "./collection/service";
 import { styleApi } from "./style/service";
 import { itemApi } from "./item/service";
 import { searchApi } from "./search/service";
+import { locationApi } from "./location/service";
 // import eventReducer from "./event/slice";
 // import addressReducer from "./address/slice";
 // import preferenceReducer from "./preferences/slice";
@@ -19,6 +21,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   user: userReducer,
   search: searchReducer,
+  preference: preferenceReducer,
   //   event: eventReducer,
   //   address: addressReducer,
   //   preferences: preferenceReducer,
@@ -30,6 +33,7 @@ const rootReducer = combineReducers({
   [styleApi.reducerPath]: styleApi.reducer,
   [itemApi.reducerPath]: itemApi.reducer,
   [searchApi.reducerPath]: searchApi.reducer,
+  [locationApi.reducerPath]: locationApi.reducer,
 });
 
 export default rootReducer;

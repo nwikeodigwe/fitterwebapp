@@ -17,8 +17,12 @@ import type { Tag as Style } from "@/types/styles/tags";
 import type { Tag as Collection } from "@/types/collections/tags";
 import type { Tag as Item } from "@/types/items/tags";
 import { useGetStyleTagsQuery } from "@/features/style/service";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/store";
+import clsx from "clsx";
 
 const Index = () => {
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
   const [brandData, setBrandData] = useState<Brand[] | null>(null);
   const [styleData, setStyleData] = useState<Style[] | null>(null);
   const [collectionData, setCollectionData] = useState<Collection[] | null>(
@@ -49,8 +53,6 @@ const Index = () => {
     isLoading: itemIsLoading,
     error: itemError,
   } = useGetItemTagsQuery({});
-
-  console.log(styleError);
 
   useEffect(() => {
     if (tagsAndBrand) setBrandData(tagsAndBrand.tags);
@@ -133,27 +135,11 @@ const Index = () => {
           </NavigationMenu.Item>
         </div>
         <div className="flex items-center space-x-3">
-          <NavigationMenu.Item>
+          <NavigationMenu.Item className={clsx({ hidden: !isAuthenticated })}>
             <Create />
           </NavigationMenu.Item>
-
           <NavigationMenu.Item>
             <Account />
-            {/* <NavigationMenu.Trigger
-              className="hover:underline transition-all ease-in-out duration-200 flex items-center justify-center"
-              aria-labelledby="Account"
-            >
-              <span className="">
-                {!isAuthenticated ? (
-                  <IoPersonOutline className="size-7" />
-                ) : (
-                  "Account"
-                )}
-              </span>
-            </NavigationMenu.Trigger>
-            <NavigationMenu.Content className="absolute top-5 right-5 translate w-[200px] bg-white border border-black-900">
-              <Account />
-            </NavigationMenu.Content> */}
           </NavigationMenu.Item>
         </div>
       </NavigationMenu.List>

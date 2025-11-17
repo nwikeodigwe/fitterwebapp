@@ -3,9 +3,9 @@ import { Select } from "radix-ui";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { IoAlertCircleOutline } from "react-icons/io5";
 
-type FieldsetSelectProps = React.ComponentProps<typeof Select.Root>;
+type Props = React.ComponentProps<typeof Select.Root>;
 
-interface Props extends FieldsetSelectProps {
+export interface SelectProps extends Props {
   className?: string;
   placeholder?: string;
   options: string[];
@@ -18,7 +18,7 @@ const SelectRoot = ({
   placeholder,
   error,
   ...props
-}: Props) => {
+}: SelectProps) => {
   return (
     <div>
       <Select.Root {...props}>
@@ -40,16 +40,15 @@ const SelectRoot = ({
             </Select.ScrollUpButton>
             <Select.Viewport>
               <Select.Group className="space-y-2">
-                {options.map((option, i) => (
+                {options.map((option) => (
                   <Select.Item
-                    key={i}
-                    value={option
-                      .toLowerCase()
-                      .replace(/\s+/g, "-")
-                      .replace(/[^a-z0-9-]/g, "")}
+                    key={crypto.randomUUID()}
+                    value={option}
                     className="cursor-pointer"
                   >
-                    <Select.ItemText>{option}</Select.ItemText>
+                    <Select.ItemText className="capitalize">
+                      {option}
+                    </Select.ItemText>
                   </Select.Item>
                 ))}
               </Select.Group>

@@ -1,4 +1,4 @@
-import { resetAllState } from "@/utils/state.utils";
+import { resetAllState } from "@/utils/state.util";
 import { useNavigate } from "react-router";
 import type { AppDispatch } from "@/store";
 import { useDispatch } from "react-redux";

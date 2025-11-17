@@ -5,12 +5,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Newsletter, { type Inputs } from "./schema";
 import clsx from "clsx";
 import { useState } from "react";
+import { useSubscribeMutation } from "@/features/user/service";
 
 const Index = () => {
   const [success, setSuccess] = useState<string>("");
+
+  const [subscribe] = useSubscribeMutation();
   const {
     register,
     handleSubmit,
+    setError,
     reset,
     formState: { errors, isSubmitting, isValid },
   } = useForm<Inputs>({
@@ -20,21 +24,24 @@ const Index = () => {
     reValidateMode: "onBlur",
   });
 
-  const url = `${import.meta.env.VITE_BASE_API_URL}/newsletter`;
-
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
-      await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      setSuccess("Thank you for your subscription");
+      const { error } = await subscribe(data);
+      if (error) {
+        setError("email", {
+          type: "custom",
+          message: "An unexpected error occured please try again.",
+        });
+        return;
+      }
+      setSuccess("Thank you for subscribing");
       reset();
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
-      console.error(err);
+      setError("email", {
+        type: "custom",
+        message: "An unexpected error occured please try again.",
+      });
     }
   };
 
@@ -43,7 +50,7 @@ const Index = () => {
       <p className={clsx(success && "hidden")}>
         Sign up for exclusive offers, popular releases and more
       </p>
-      <p className={clsx("text-green-500", !success && "hidden")}>{success}</p>
+      <p className={clsx("text-green-700", !success && "hidden")}>{success}</p>
       {errors.email?.message && (
         <p className="text-red-500 text-[10px]">{errors.email?.message}</p>
       )}

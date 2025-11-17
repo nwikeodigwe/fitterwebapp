@@ -1,10 +1,6 @@
 import clsx from "clsx";
 import { IoAlertCircleOutline } from "react-icons/io5";
-import {
-  type InputHTMLAttributes,
-  type ReactNode,
-  type Ref,
-} from "react";
+import { type InputHTMLAttributes, type ReactNode, type Ref } from "react";
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   options?: string[];
@@ -14,14 +10,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   ref?: Ref<HTMLInputElement>;
 }
 
-const CustomInput = ({
-  icon,
-  error,
-  ref,
-  className,
-  ...props
-}: InputProps) => {
-
+const CustomInput = ({ icon, error, ref, className, ...props }: InputProps) => {
   return (
     <div className="relative">
       <div
@@ -32,7 +21,7 @@ const CustomInput = ({
         {icon}
         <input
           ref={ref}
-          className="border-none outline-none focus:outline-none border"
+          className="border-none outline-none focus:outline-none border w-full"
           {...props}
         />
 

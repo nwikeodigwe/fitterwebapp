@@ -11,6 +11,7 @@ import { collectionApi } from "./features/collection/service";
 import { styleApi } from "./features/style/service";
 import { itemApi } from "./features/item/service";
 import { searchApi } from "./features/search/service";
+import { locationApi } from "./features/location/service";
 
 const persistConfig = {
   key: "root",
@@ -31,7 +32,8 @@ const store = configureStore({
       .concat(collectionApi.middleware)
       .concat(styleApi.middleware)
       .concat(itemApi.middleware)
-      .concat(searchApi.middleware),
+      .concat(searchApi.middleware)
+      .concat(locationApi.middleware),
 });
 
 export const persistor = persistStore(store);

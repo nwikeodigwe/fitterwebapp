@@ -63,6 +63,13 @@ export const userApi = createApi({
       query: () => "/",
       keepUnusedDataFor: 60,
     }),
+    subscribe: builder.mutation({
+      query: (data) => ({
+        url: `/newsletter`,
+        method: "POST",
+        body: data,
+      }),
+    }),
     subscribeToUser: builder.mutation({
       query: (data) => ({
         url: `${data.user}/subscribe`,
@@ -124,6 +131,7 @@ export const {
   useGetUserProfileQuery,
   useGetUserStylesQuery,
   useSubscribeToUserMutation,
+  useSubscribeMutation,
   useUnsubscribefromUserMutation,
   useUpdateUserMutation,
   useUpdateUserProfileMutation,

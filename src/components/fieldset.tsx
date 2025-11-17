@@ -8,6 +8,7 @@ import Autocomplete, { type AutocompleteProps } from "./autocomplete";
 import type { MultiselectProps } from "./multiselect";
 import Multiselect from "./multiselect";
 import FileUpload, { type FileUploadProps } from "./fileupload";
+import Select, { type SelectProps } from "@/components/select";
 
 interface FieldsetProps {
   className?: string;
@@ -58,6 +59,8 @@ const FieldsetDescription = ({
 }) => <p className={clsx(className)}>{children}</p>;
 
 const FieldsetInput = ({ ...props }: InputProps) => <Input {...props} />;
+
+const FieldsetSelect = ({ ...props }: SelectProps) => <Select {...props} />;
 
 const FieldsetAutocomplete = ({ ...props }: AutocompleteProps) => (
   <Autocomplete {...props} />
@@ -118,6 +121,7 @@ const Fieldset = {
   Description: FieldsetDescription,
   Radio: FieldsetRadio,
   Input: FieldsetInput,
+  Select: FieldsetSelect,
   Autocomplete: FieldsetAutocomplete,
   Multiselect: FieldsetMultiselect,
   Fileupload: FieldsetFileupload,
