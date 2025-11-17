@@ -87,7 +87,7 @@ const Index = () => {
           </NavigationMenu.Item>
           <NavigationMenu.Item>
             <NavigationMenu.Trigger className="hover:underline transition-all ease-in-out duration-200">
-              Brands
+              <Link to="/brands">Brands</Link>
             </NavigationMenu.Trigger>
             <NavigationMenu.Content className="absolute top-5 right-1/2 translate w-[400px] translate-x-1/2 bg-white border border-black-900">
               <Brands
@@ -99,7 +99,7 @@ const Index = () => {
           </NavigationMenu.Item>
           <NavigationMenu.Item>
             <NavigationMenu.Trigger className="hover:underline transition-all ease-in-out duration-200">
-              Collections
+              <Link to="/collections">Collections</Link>
             </NavigationMenu.Trigger>
             <NavigationMenu.Content className="absolute top-5 right-1/2 translate w-[600px] translate-x-1/2 bg-white border border-black-900">
               <Collections
@@ -111,7 +111,7 @@ const Index = () => {
           </NavigationMenu.Item>
           <NavigationMenu.Item>
             <NavigationMenu.Trigger className="hover:underline transition-all ease-in-out duration-200">
-              Styles
+              <Link to="/styles">Styles</Link>
             </NavigationMenu.Trigger>
             <NavigationMenu.Content className="absolute top-5 right-1/2 translate w-[600px] translate-x-1/2 bg-white border border-black-900">
               <Styles
@@ -123,7 +123,7 @@ const Index = () => {
           </NavigationMenu.Item>
           <NavigationMenu.Item>
             <NavigationMenu.Trigger className="hover:underline transition-all ease-in-out duration-200">
-              Items
+              <Link to="/items">Items</Link>
             </NavigationMenu.Trigger>
             <NavigationMenu.Content className="absolute top-5 right-1/2 translate w-[600px] translate-x-1/2 bg-white border border-black-900">
               <Items

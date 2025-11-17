@@ -35,21 +35,18 @@
 @layer components {
   .view-grid {
     display: grid;
-    grid-template-areas: "right header left" "side main left";
+    grid-template-areas: "side main left";
     grid-template-columns: 2fr 9fr 2fr;
     gap: 10px;
-  }
-  .right {
-    grid-area: right;
-  }
-  .header {
-    grid-area: header;
   }
   .side {
     grid-area: side;
   }
   .main {
     grid-area: main;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    padding: 20px 0px;
   }
   .empty {
     grid-area: left;

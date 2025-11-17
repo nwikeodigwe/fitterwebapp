@@ -16,6 +16,10 @@ export const styleApi = createApi({
       query: (style) => `/${style}`,
       keepUnusedDataFor: 60,
     }),
+    getStyleCount: builder.query({
+      query: () => `/count`,
+      keepUnusedDataFor: 60,
+    }),
     getStyleTags: builder.query({
       query: () => "/tags",
       keepUnusedDataFor: 60,
@@ -162,6 +166,7 @@ export const {
   useCommentOnCommentMutation,
   useCommentOnStyleMutation,
   useGetStyleTagsQuery,
+  useGetStyleCountQuery,
   useCreateStyleMutation,
   useDeleteStyleCommentMutation,
   useDeleteStyleMutation,

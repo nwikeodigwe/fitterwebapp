@@ -16,6 +16,10 @@ export const brandApi = createApi({
       query: (brand) => `/${brand}`,
       keepUnusedDataFor: 60,
     }),
+    getBrandCount: builder.query({
+      query: () => `/count`,
+      keepUnusedDataFor: 60,
+    }),
     getBrandTags: builder.query({
       query: () => "/tags",
       keepUnusedDataFor: 60,
@@ -146,6 +150,7 @@ export const {
   useGetBrandsQuery,
   useGetBrandQuery,
   useGetBrandTagsQuery,
+  useGetBrandCountQuery,
   useCreateBrandMutation,
   useUpdateBrandMutation,
   useFavoriteBrandMutation,

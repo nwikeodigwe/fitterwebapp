@@ -16,6 +16,10 @@ export const collectionApi = createApi({
       query: (collection) => collection,
       keepUnusedDataFor: 60,
     }),
+    getCollectionCount: builder.query({
+      query: () => `/count`,
+      keepUnusedDataFor: 60,
+    }),
     getCollectionTags: builder.query({
       query: () => "/tags",
       keepUnusedDataFor: 0,
@@ -107,6 +111,7 @@ export const collectionApi = createApi({
 export const {
   useCreateCollectionMutation,
   useGetCollectionTagsQuery,
+  useGetCollectionCountQuery,
   useDeleteCollectionMutation,
   useDownvoteCollectionMutation,
   useFavoriteCollectionMutation,

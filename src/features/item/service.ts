@@ -21,6 +21,10 @@ export const itemApi = createApi({
       query: () => "/me",
       keepUnusedDataFor: 60,
     }),
+    getItemCount: builder.query({
+      query: () => `/count`,
+      keepUnusedDataFor: 60,
+    }),
     getItemTags: builder.query({
       query: () => "/tags",
       keepUnusedDataFor: 60,
@@ -108,6 +112,7 @@ export const itemApi = createApi({
 export const {
   useGetItemQuery,
   useGetItemsQuery,
+  useGetItemCountQuery,
   useGetItemTagsQuery,
   useGetUserItemQuery,
   useUpvoteItemMutation,
