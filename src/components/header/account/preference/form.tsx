@@ -1,4 +1,3 @@
-import Button from "@/components/button";
 import Preference, { type Inputs } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm, type SubmitHandler } from "react-hook-form";
@@ -14,9 +13,7 @@ import type { RootState } from "@/store";
 
 const Form = () => {
   const dispatch = useDispatch();
-  const { country, currency } = useSelector(
-    (state: RootState) => state.preference
-  );
+  const preference = useSelector((state: RootState) => state.preference);
   const { data: location } = useGetCountryQuery({});
 
   const {
@@ -26,8 +23,8 @@ const Form = () => {
     formState: { errors, isSubmitting, isValid },
   } = useForm<Inputs>({
     defaultValues: {
-      location: country || location.country || "Netherlands",
-      currency: currency || Object.keys(currencies)?.[0],
+      location: "",
+      currency: Object.keys(currencies)?.[0],
     },
     resolver: zodResolver(Preference),
     mode: "onChange",
@@ -65,7 +62,7 @@ const Form = () => {
               )}
               className=""
               placeholder="Select country"
-              defaultValue={country || "Netherlands"}
+              defaultValue={preference?.country || location.country}
             />
           )}
         ></Controller>
@@ -82,18 +79,20 @@ const Form = () => {
               options={Object.keys(currencies)}
               className=""
               placeholder="Select currency"
-              defaultValue={currency || Object.keys(currencies)?.[0]}
+              defaultValue={preference.currency || Object.keys(currencies)?.[0]}
             />
           )}
         ></Controller>
       </Fieldset.Root>
-      <Button
-        type="submit"
-        disabled={isSubmitting || !isValid}
-        className="border border-gray-900 p-3 bg-gray-900 text-white cursor-pointer uppercase w-full disabled:cursor-not-allowed"
-      >
-        Confirm
-      </Button>
+      <Fieldset.Root>
+        <Fieldset.Button
+          type="submit"
+          disabled={isSubmitting || !isValid}
+          className="border border-gray-900 p-3 bg-gray-900 text-white cursor-pointer uppercase w-full disabled:cursor-not-allowed"
+        >
+          Confirm
+        </Fieldset.Button>
+      </Fieldset.Root>
     </form>
   );
 };

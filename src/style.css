@@ -61,6 +61,11 @@
     @apply max-w-5xl mx-auto px-4;
   }
 
+  .no-scrollbar {
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+  }
+
   canvas {
     @apply !bg-transparent;
   }

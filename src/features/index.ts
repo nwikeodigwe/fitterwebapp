@@ -11,21 +11,12 @@ import { styleApi } from "./style/service";
 import { itemApi } from "./item/service";
 import { searchApi } from "./search/service";
 import { locationApi } from "./location/service";
-// import eventReducer from "./event/slice";
-// import addressReducer from "./address/slice";
-// import preferenceReducer from "./preferences/slice";
-// import cartReducer from "./cart/slice";
-// import historyReducer from "./historySlice";
 
 const rootReducer = combineReducers({
   auth: authReducer,
   user: userReducer,
   search: searchReducer,
   preference: preferenceReducer,
-  //   event: eventReducer,
-  //   address: addressReducer,
-  //   preferences: preferenceReducer,
-  //   cart: cartReducer,
   [userApi.reducerPath]: userApi.reducer,
   [authApi.reducerPath]: authApi.reducer,
   [brandApi.reducerPath]: brandApi.reducer,

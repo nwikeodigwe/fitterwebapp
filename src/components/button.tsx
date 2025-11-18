@@ -1,9 +1,7 @@
-import React, { type ButtonHTMLAttributes, type ReactNode } from "react";
+import React, { type ButtonHTMLAttributes } from "react";
 import clsx from "clsx";
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: ReactNode;
-}
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button = React.memo(({ className, children, ...props }: ButtonProps) => {
   return (

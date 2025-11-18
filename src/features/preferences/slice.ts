@@ -1,30 +1,29 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-export type preferenceState = {
+export type PreferenceState = {
   country?: string;
   currency?: string;
 };
 
-const initialState: preferenceState = {
-  country: undefined,
-  currency: undefined,
+const initialState: PreferenceState = {
+  country: "Netherlands",
+  currency: "EUR",
 };
 
 const preferenceSlice = createSlice({
   name: "preference",
   initialState,
   reducers: {
-    setPreference: (state, action: PayloadAction<preferenceState>) => {
+    setPreference: (state, action: PayloadAction<PreferenceState>) => {
       state.country = action.payload.country;
       state.currency = action.payload.currency;
     },
-    clearPreference: (state) => {
-      state.country = undefined;
-      state.currency = undefined;
+    clearPreference: (_state) => {
+      return initialState;
     },
   },
 });
 
 export const { setPreference, clearPreference } = preferenceSlice.actions;
-
 export default preferenceSlice.reducer;

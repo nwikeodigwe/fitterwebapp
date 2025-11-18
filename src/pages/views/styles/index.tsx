@@ -1,10 +1,27 @@
-import { useGetStyleCountQuery } from "@/features/style/service";
-import Card from "../card";
+import {
+  useGetStyleCountQuery,
+  useGetStylesQuery,
+} from "@/features/style/service";
 import Header from "../header";
+import View from "../view";
+import Skeleton from "../skeleton";
+import Error from "../error";
 
 const Index = () => {
   const { data } = useGetStyleCountQuery({});
   const count = data?.count ?? 0;
+  const { data: response, isLoading, error } = useGetStylesQuery({});
+  const styles = response?.styles || [];
+
+  const name = "styles"
+
+  const view = isLoading ? (
+    <Skeleton />
+  ) : error ? (
+    <Error name={name} />
+  ) : (
+    <View data={styles} href={name} />
+  );
 
   return (
     <div className="main">
@@ -14,15 +31,7 @@ const Index = () => {
         count={count}
         className="header"
       />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  border-l border-t">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-      </div>
+      {view}
     </div>
   );
 };

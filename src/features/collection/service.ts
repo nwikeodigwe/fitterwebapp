@@ -11,6 +11,7 @@ export const collectionApi = createApi({
     getCollections: builder.query({
       query: () => "",
       keepUnusedDataFor: 60,
+      transformErrorResponse: (response) => { console.log(response)}
     }),
     getCollection: builder.query({
       query: (collection) => collection,
@@ -25,12 +26,12 @@ export const collectionApi = createApi({
       keepUnusedDataFor: 0,
     }),
     getCollectionStyles: builder.query({
-      query: (collection) => `${collection}/styles`,
+      query: (collection) => `/${collection}/styles`,
       keepUnusedDataFor: 60,
     }),
     createCollection: builder.mutation({
       query: (data) => ({
-        url: "",
+        url: "/",
         method: "POST",
         body: data,
         headers: {
@@ -40,7 +41,7 @@ export const collectionApi = createApi({
     }),
     updateCollection: builder.mutation({
       query: (data) => ({
-        url: data.collection,
+        url: `/${data.collection}`,
         method: "PATCH",
         body: data,
         headers: {
@@ -50,7 +51,7 @@ export const collectionApi = createApi({
     }),
     favoriteCollection: builder.mutation({
       query: (data) => ({
-        url: `${data.collection}/favorite`,
+        url: `/${data.collection}/favorite`,
         method: "POST",
         body: data,
         headers: {
@@ -60,7 +61,7 @@ export const collectionApi = createApi({
     }),
     unfavoriteCollection: builder.mutation({
       query: (data) => ({
-        url: `${data.collection}/unfavorite`,
+        url: `/${data.collection}/unfavorite`,
         method: "DELETE",
         body: data,
         headers: {
@@ -70,7 +71,7 @@ export const collectionApi = createApi({
     }),
     upvoteCollection: builder.mutation({
       query: (data) => ({
-        url: `${data.collection}/upvote`,
+        url: `/${data.collection}/upvote`,
         method: "PUT",
         body: data,
         headers: {
@@ -80,7 +81,7 @@ export const collectionApi = createApi({
     }),
     downvoteCollection: builder.mutation({
       query: (data) => ({
-        url: `${data.collection}/downvote`,
+        url: `/${data.collection}/downvote`,
         method: "PUT",
         body: data,
         headers: {
@@ -90,7 +91,7 @@ export const collectionApi = createApi({
     }),
     unvoteCollection: builder.mutation({
       query: (data) => ({
-        url: `${data.collection}/unvote`,
+        url: `/${data.collection}/unvote`,
         method: "DELETE",
         body: data,
         headers: {
@@ -100,7 +101,7 @@ export const collectionApi = createApi({
     }),
     deleteCollection: builder.mutation({
       query: (data) => ({
-        url: `${data.collection}`,
+        url: `/${data.collection}`,
         method: "DELETE",
         body: data,
       }),

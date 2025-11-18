@@ -7,6 +7,7 @@ import Styles from "@/pages/views/styles";
 import Collections from "@/pages/views/collections";
 import Views from "@/pages/views";
 import Logout from "./pages/logout";
+import NotFound from "./pages/notfound";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,7 @@ const router = createBrowserRouter([
       { path: "/logout", Component: Logout },
     ],
   },
+  { path: "*", Component: NotFound },
 ]);
 
 export default router;

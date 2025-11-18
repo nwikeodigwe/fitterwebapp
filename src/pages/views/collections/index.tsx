@@ -1,10 +1,26 @@
-import { useGetCollectionCountQuery } from "@/features/collection/service";
-import Card from "../card";
+import {
+  useGetCollectionCountQuery,
+  useGetCollectionsQuery,
+} from "@/features/collection/service";
 import Header from "../header";
+import Skeleton from "../skeleton";
+import View from "../view";
+import Error from "../error";
 
 const Index = () => {
   const { data } = useGetCollectionCountQuery({});
   const count = data?.count ?? 0;
+
+  const { data: response, isLoading, error } = useGetCollectionsQuery({});
+const collections = response?.collections || [];
+
+  const view = isLoading ? (
+    <Skeleton />
+  ) : error ? (
+    <Error name="collections" />
+  ) : (
+    <View data={collections} href="collections" />
+  );
 
   return (
     <div className="main">
@@ -14,15 +30,7 @@ const Index = () => {
         count={count}
         className="header"
       />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  border-l border-t">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-      </div>
+      {view}
     </div>
   );
 };

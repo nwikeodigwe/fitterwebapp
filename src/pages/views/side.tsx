@@ -2,8 +2,8 @@ import { Link } from "react-router";
 
 const Side = () => {
   return (
-    <div className="side relative h-screen">
-      <div className=" top-0 left-0 w-full">
+    <div className="side relative h-full">
+      <div className=" sticky top-0 left-0 w-full mt-40">
         <ul className="flex flex-col items-ends">
           <li className="text-right">
             <Link to="#" className="hover:underline">

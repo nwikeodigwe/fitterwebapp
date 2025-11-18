@@ -1,10 +1,27 @@
-import { useGetBrandCountQuery } from "@/features/brand/service";
-import Card from "../card";
+import {
+  useGetBrandCountQuery,
+  useGetBrandsQuery,
+} from "@/features/brand/service";
 import Header from "../header";
+import Skeleton from "../skeleton";
+import View from "../view";
+import Error from "../error";
 
 const Index = () => {
   const { data } = useGetBrandCountQuery({});
   const count = data?.count ?? 0;
+
+  const { data: response, isLoading, error } = useGetBrandsQuery({});
+
+  const brands = response?.brands || [];
+
+  const view = isLoading ? (
+    <Skeleton />
+  ) : error ? (
+    <Error name="brand" />
+  ) : (
+    <View data={brands} href="items" />
+  );
 
   return (
     <div className="main">
@@ -14,15 +31,7 @@ const Index = () => {
         count={count}
         className="header"
       />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  border-l border-t">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-      </div>
+      {view}
     </div>
   );
 };

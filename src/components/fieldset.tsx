@@ -107,12 +107,8 @@ const FieldsetRadio = ({
   className?: string;
 }) => <div className={clsx(className)}>{children}</div>;
 
-const FieldsetButton = ({ children, className, ...props }: ButtonProps) => {
-  return (
-    <Button className={className} {...props}>
-      {children}
-    </Button>
-  );
+const FieldsetButton = ({ children, ...props }: ButtonProps) => {
+  return <Button {...props}>{children}</Button>;
 };
 
 const Fieldset = {
