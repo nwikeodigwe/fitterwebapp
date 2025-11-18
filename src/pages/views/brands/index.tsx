@@ -15,10 +15,13 @@ const Index = () => {
 
   const brands = response?.brands || [];
 
+  const errMsg =
+    count === 0 ? "No collection found" : "An unexpected error occured";
+
   const view = isLoading ? (
     <Skeleton />
-  ) : error ? (
-    <Error name="brand" />
+  ) : count === 0 || error ? (
+    <Error message={errMsg} />
   ) : (
     <View data={brands} href="items" />
   );

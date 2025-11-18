@@ -14,14 +14,15 @@ const Index = () => {
   const { data: response, isLoading, error } = useGetItemsQuery({});
 
   const items = response?.items || [];
-  const name = "items";
+  const errMsg =
+    count === 0 ? "No collection found" : "An unexpected error occured";
 
   const view = isLoading ? (
     <Skeleton />
   ) : error ? (
-    <Error name={name} />
+    <Error message={errMsg} />
   ) : (
-    <View data={items} href={name} />
+    <View data={items} href="items" />
   );
 
   return (

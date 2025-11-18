@@ -8,6 +8,10 @@ import Collections from "@/pages/views/collections";
 import Views from "@/pages/views";
 import Logout from "./pages/logout";
 import NotFound from "./pages/notfound";
+import Item from "./pages/views/items/view";
+import Brand from "./pages/views/brands/view";
+import Style from "./pages/views/styles/view";
+import Collection from "./pages/views/collections/view";
 
 const router = createBrowserRouter([
   {
@@ -20,22 +24,30 @@ const router = createBrowserRouter([
         children: [
           {
             path: "items",
-            Component: Items,
+            children: [{ index: true, Component: Items }],
           },
           {
             path: "brands",
-            Component: Brands,
+            children: [{ index: true, Component: Brands }],
           },
           {
             path: "styles",
-            Component: Styles,
+            children: [{ index: true, Component: Styles }],
           },
           {
             path: "collections",
-            Component: Collections,
+            children: [{ index: true, Component: Collections }],
           },
         ],
       },
+      { path: "items", children: [{ path: ":slug", Component: Item }] },
+      { path: "brands", children: [{ path: ":slug", Component: Brand }] },
+      { path: "styles", children: [{ path: ":slug", Component: Style }] },
+      {
+        path: "collection",
+        children: [{ path: ":slug", Component: Collection }],
+      },
+
       { path: "/logout", Component: Logout },
     ],
   },

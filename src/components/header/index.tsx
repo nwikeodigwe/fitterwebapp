@@ -71,7 +71,7 @@ const Index = () => {
   }, [tagsAndItem]);
 
   return (
-    <NavigationMenu.Root className="border-b border-black-900 py-4 bg-white px-5">
+    <NavigationMenu.Root className="border-b border-black-900 py-4 bg-white px-5 z-20 sticky">
       <NavigationMenu.List className="flex items-center justify-between">
         <NavigationMenu.Item>
           <Search />

@@ -12,12 +12,15 @@ const Index = () => {
   const count = data?.count ?? 0;
 
   const { data: response, isLoading, error } = useGetCollectionsQuery({});
-const collections = response?.collections || [];
+  const collections = response?.collections || [];
+
+  const errMsg =
+    count === 0 ? "No collection found" : "An unexpected error occured";
 
   const view = isLoading ? (
     <Skeleton />
-  ) : error ? (
-    <Error name="collections" />
+  ) : count === 0 || error ? (
+    <Error message={errMsg} />
   ) : (
     <View data={collections} href="collections" />
   );

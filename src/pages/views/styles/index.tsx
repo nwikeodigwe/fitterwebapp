@@ -13,14 +13,14 @@ const Index = () => {
   const { data: response, isLoading, error } = useGetStylesQuery({});
   const styles = response?.styles || [];
 
-  const name = "styles"
+  const errMsg = count === 0 ? "No style found" : "An unexpected error occured";
 
   const view = isLoading ? (
     <Skeleton />
-  ) : error ? (
-    <Error name={name} />
+  ) : count === 0 || error ? (
+    <Error message={errMsg} />
   ) : (
-    <View data={styles} href={name} />
+    <View data={styles} href={"styles"} />
   );
 
   return (
