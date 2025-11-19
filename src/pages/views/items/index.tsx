@@ -4,7 +4,7 @@ import {
 } from "@/features/item/service";
 import Header from "../header";
 import Skeleton from "../skeleton";
-import View from "../view";
+import Grid from "../grid";
 import Error from "../error";
 
 const Index = () => {
@@ -14,15 +14,14 @@ const Index = () => {
   const { data: response, isLoading, error } = useGetItemsQuery({});
 
   const items = response?.items || [];
-  const errMsg =
-    count === 0 ? "No collection found" : "An unexpected error occured";
+  const errMsg = count === 0 ? "No Item found" : "An unexpected error occured";
 
   const view = isLoading ? (
     <Skeleton />
   ) : error ? (
     <Error message={errMsg} />
   ) : (
-    <View data={items} href="items" />
+    <Grid data={items} href="items" />
   );
 
   return (

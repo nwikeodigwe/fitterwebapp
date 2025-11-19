@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, type ReactNode } from "react";
 import Textarea, { type TextareaProps } from "@/components/textarea";
 import Input, { type InputProps } from "@/components/input";
 import Button, { type ButtonProps } from "@/components/button";
@@ -12,7 +12,7 @@ import Select, { type SelectProps } from "@/components/select";
 
 interface FieldsetProps {
   className?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
   required?: boolean;
 }
 
@@ -54,7 +54,7 @@ const FieldsetDescription = ({
   children,
   className,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 }) => <p className={clsx(className)}>{children}</p>;
 
@@ -82,7 +82,7 @@ const FieldsetError = ({
   children,
   className,
 }: {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
 }) => (
   <div
@@ -103,7 +103,7 @@ const FieldsetRadio = ({
   children,
   className,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 }) => <div className={clsx(className)}>{children}</div>;
 

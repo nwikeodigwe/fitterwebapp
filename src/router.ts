@@ -8,7 +8,7 @@ import Collections from "@/pages/views/collections";
 import Views from "@/pages/views";
 import Logout from "./pages/logout";
 import NotFound from "./pages/notfound";
-import Item from "./pages/views/items/view";
+import Item from "./pages/views/view";
 import Brand from "./pages/views/brands/view";
 import Style from "./pages/views/styles/view";
 import Collection from "./pages/views/collections/view";

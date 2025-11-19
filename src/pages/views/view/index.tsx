@@ -13,7 +13,7 @@ import { CiBookmark } from "react-icons/ci";
 
 const Index = () => {
   const items = ["first", "second", "third", "fouth", "fifth"];
-  const handleNavigate = (direction: "left" | "right") => {
+  const handleNavigate = (direction: "left" | "right" | undefined) => {
     console.log(`Navigating ${direction}`);
   };
   return (
