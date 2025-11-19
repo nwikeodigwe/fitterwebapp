@@ -111,6 +111,20 @@ const FieldsetButton = ({ children, ...props }: ButtonProps) => {
   return <Button {...props}>{children}</Button>;
 };
 
+FieldsetRoot.displayName = "FieldsetRoot";
+FieldsetLabel.displayName = "FieldsetLabel";
+FieldsetDescription.displayName = "FieldsetDescription";
+FieldsetRadio.displayName = "FieldsetRadio";
+FieldsetInput.displayName = "FieldsetInput";
+FieldsetSelect.displayName = "FieldsetSelect";
+FieldsetAutocomplete.displayName = "FieldsetAutocomplete";
+FieldsetMultiselect.displayName = "FieldsetMultiselect";
+FieldsetFileupload.displayName = "FieldsetFileupload";
+FieldsetCheckbox.displayName = "FieldsetCheckbox";
+FieldsetTextarea.displayName = "FieldsetTextArea";
+FieldsetButton.displayName = "FieldsetButton";
+FieldsetError.displayName = "FieldsetError";
+
 const Fieldset = {
   Root: FieldsetRoot,
   Label: FieldsetLabel,
@@ -126,5 +140,4 @@ const Fieldset = {
   Button: FieldsetButton,
   Error: FieldsetError,
 };
-
 export default Fieldset;

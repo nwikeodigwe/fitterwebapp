@@ -14,14 +14,14 @@ const Textarea = ({ error, className, ...props }: TextareaProps) => {
     <div>
       <div
         className={clsx(
-          "flex flex-col gap-2 border relative",
+          "flex flex-col gap-2 relative",
           className,
           error && "border-red-400"
         )}
       >
         <textarea
           {...props}
-          className="border-none outline-none h-full"
+          className={clsx("border-none resize-none outline-none min-h-full")}
         ></textarea>
         <div className={clsx("absolute right-0 top-0", !error && "hidden")}>
           <IoAlertCircleOutline className="absolute right-4 top-1/2 translate-y-1/2 text-2xl text-red-400" />

@@ -8,7 +8,7 @@ const Layout = () => {
     <div className="min-h-screen relative">
       <Header />
       <Outlet />
-      <Footer />
+      {/* <Footer /> */}
       <Toast />
     </div>
   );

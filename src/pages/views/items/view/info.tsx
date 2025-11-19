@@ -1,79 +1,106 @@
+import Panel from "@/components/panel";
 import clsx from "clsx";
-import { useState, type PointerEventHandler } from "react";
+import { useState } from "react";
+import { PiInfoThin } from "react-icons/pi";
+import { Link } from "react-router";
 
 const Info = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
-  const [isDragging, setIsDragging] = useState(false);
-  const [translate, setTranslate] = useState({
-    x: 0,
-    y: 0,
-  });
-
-  const handleDrag: PointerEventHandler<HTMLDivElement> = (e) => {
-    setTranslate({
-      x: translate.x + e.movementX,
-      y: translate.y + e.movementY,
-    });
-  };
-
-  const handlePointerDown: PointerEventHandler<HTMLDivElement> = (e) => {
-    const target = e.currentTarget;
-    target.setPointerCapture(e.pointerId);
-    setIsDragging(true);
-  };
-
-  const handlePointerUp: PointerEventHandler<HTMLDivElement> = (e) => {
-    if ((e.target as HTMLElement).closest("button")) {
-      return;
-    }
-
-    const target = e.currentTarget;
-    target.releasePointerCapture(e.pointerId);
-    setIsDragging(false);
-  };
-
-  const handlePointerMove: PointerEventHandler<HTMLDivElement> = (e) => {
-    if (isDragging) handleDrag(e);
-  };
-
-  const toggleOpen = () => {
-    console.log("Clicked!!!");
-    setIsOpen((prev) => !prev);
-  };
-
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  
   return (
     <div>
       <button
-        onClick={toggleOpen}
+        onClick={() => setIsOpen((prev) => !prev)}
         className="cursor-pointer hover:underline duration-150 transition"
       >
-        Info
+        <PiInfoThin size={30} />
       </button>
-      <div
-        onPointerDown={handlePointerDown}
-        onPointerUp={handlePointerUp}
-        onPointerMove={handlePointerMove}
-        style={{
-          transform: `translateX(${translate.x}px) translateY(${translate.y}px)`,
-        }}
+      <Panel.Root
+        open={isOpen}
+        isClosable
+        isDraggable
+        handleClose={() => setIsOpen(false)}
         className={clsx(
-          "absolute top-0 right-0 w-[90vw] max-w-[350px] mr-10 bg-gray1 focus:outline-none data-[state=open]:animate-contentShow border border-gray-900 bg-white h-full p-2",
-          !isOpen && "hidden"
+          "absolute top-0 right-0 w-[90vw] max-w-[300px] mr-10 bg-gray1 focus:outline-none data-[state=open]:animate-contentShow border border-gray-900 bg-white max-h-[83%] overflow-y-scroll no-scrollbar"
         )}
       >
-        <div className="flex items-center justify-between">
-          <h1>Information</h1>
-          <button
-            onClick={toggleOpen}
-            onPointerDown={(e) => e.stopPropagation()}
-            aria-labelledby="Close button"
-            className="cursor-pointer z-20"
-            aria-label="Close"
-          >
-            Close
-          </button>
-        </div>
-      </div>
+        <Panel.Header>
+          <h2 className="text-[10px]">Information</h2>
+        </Panel.Header>
+        <Panel.Content>
+          <div className="border-b px-3 py-4 space-y-4">
+            <p>
+              The 2025 edition of the Air Jordan 5 Retro T23 'Tokyo' revives a
+              2011 limited release that dropped exclusively in Japan. Like the
+              original, this reissue sports a bright yellow nubuck upper with
+              translucent quarter panel netting and grey molded eyelets. A
+              Jumpman logo adorns the silver reflective tongue in black
+              embroidery, matching the textile collar lining, stylized '23' on
+              the lateral heel, and the second Jumpman icon that adorns the back
+              heel.
+            </p>
+          </div>
+          <div className="border-b px-3 py-4 space-y-4">
+            <h2 className="text-[10px]">Saint Laurant</h2>
+            <div className="flex items-center overflow-x-scroll no-scrollbar space-x-5">
+              <div className="h-20 w-20 bg-black/10 flex-shrink-0"></div>
+              <div className="h-20 w-20 bg-black/10 flex-shrink-0"></div>
+              <div className="h-20 w-20 bg-black/10 flex-shrink-0"></div>
+              <div className="h-20 w-20 bg-black/10 flex-shrink-0"></div>
+              <div className="h-20 w-20 bg-black/10 flex-shrink-0"></div>
+            </div>
+          </div>
+          <div className="border-b px-3 py-4 space-y-4">
+            <h2 className="text-[10px]">Wallets</h2>
+            <div className="flex items-center overflow-x-scroll no-scrollbar space-x-5">
+              <div className="h-20 w-20 bg-black/10 flex-shrink-0"></div>
+              <div className="h-20 w-20 bg-black/10 flex-shrink-0"></div>
+              <div className="h-20 w-20 bg-black/10 flex-shrink-0"></div>
+              <div className="h-20 w-20 bg-black/10 flex-shrink-0"></div>
+              <div className="h-20 w-20 bg-black/10 flex-shrink-0"></div>
+            </div>
+          </div>
+          <div className="border-b px-3 py-4 flex items-center justify-between">
+            <h2 className="text-[10px]">Season</h2>
+            <Link to="#" className="hover:underline duration-150 transition">
+              2025
+            </Link>
+          </div>
+          <div className="border-b px-3 py-4 flex items-center justify-between">
+            <h2 className="text-[10px]">ColorWay</h2>
+            <Link to="#" className="hover:underline duration-150 transition">
+              Black
+            </Link>
+          </div>
+          <div className="border-b px-3 py-4 flex items-center justify-between">
+            <h2 className="text-[10px]">Main Color</h2>
+            <Link to="#" className="hover:underline duration-150 transition">
+              Black
+            </Link>
+          </div>
+          <div className="border-b px-3 py-4 space-y-4">
+            <h2 className="text-[10px]">Recommendations</h2>
+            <div className="flex items-center overflow-x-scroll no-scrollbar space-x-5">
+              <div className="h-20 w-20 bg-black/10 flex-shrink-0"></div>
+              <div className="h-20 w-20 bg-black/10 flex-shrink-0"></div>
+              <div className="h-20 w-20 bg-black/10 flex-shrink-0"></div>
+              <div className="h-20 w-20 bg-black/10 flex-shrink-0"></div>
+              <div className="h-20 w-20 bg-black/10 flex-shrink-0"></div>
+            </div>
+          </div>
+          <div className="px-3 py-4 flex items-start justify-between space-x-4">
+            <h2 className="text-[10px]">Related</h2>
+            <div className="flex flex-col space-y-3">
+              <Link to="#" className="hover:underline">
+                Alias EOY 90s Minimalism
+              </Link>
+              <Link to="#" className="hover:underline">
+                Summer Sale: Accessories
+              </Link>
+            </div>
+          </div>
+        </Panel.Content>
+      </Panel.Root>
     </div>
   );
 };
