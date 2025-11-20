@@ -20,15 +20,15 @@ const List = () => {
     </Grid.Root>
   );
 
-  // return isLoading ? (
-  //   <Skeleton />
-  // ) : error ? (
-  //   <Status type="error" message={errorMessage} />
-  // ) : (
-  //   list
-  // );
+  return isLoading ? (
+    <Skeleton />
+  ) : error ? (
+    <Status type="error" message={errorMessage} />
+  ) : (
+    list
+  );
 
-  return <Skeleton />;
+
 };
 
 export default List;

@@ -2,7 +2,11 @@ import Nav from "./nav";
 import Content from "./content";
 import ListContext from "./context";
 import { useNavigate, useParams } from "react-router";
-import { useGetListByFilterQuery } from "@/features/main/service";
+import {
+  useFavoriteMutation,
+  useUnfavoriteMutation,
+  useGetListByFilterQuery,
+} from "@/features/main/service";
 import summary from "./data.json";
 import reducer, { initialState } from "./reducer";
 import { useEffect, useReducer } from "react";
@@ -19,6 +23,8 @@ const Index = () => {
   }
 
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [favorite] = useFavoriteMutation();
+  const [unfavorite] = useUnfavoriteMutation();
 
   const {
     data: response,
@@ -59,6 +65,8 @@ const Index = () => {
           data: state.data,
           isLoading: state.isLoading,
           error: state.error,
+          handleFavorite: favorite,
+          handleUnfavorite: unfavorite,
         }}
       >
         <div className="view-grid">

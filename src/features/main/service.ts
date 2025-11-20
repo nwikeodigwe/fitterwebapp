@@ -47,7 +47,7 @@ export const mainApi = createApi({
     }),
     favorite: builder.mutation({
       query: (data) => ({
-        url: `/action/favorite/${data.type}/${data.type}`,
+        url: `/action/favorite/${data.type}/${data.id}`,
         method: "POST",
         body: data,
         headers: {
@@ -55,7 +55,26 @@ export const mainApi = createApi({
         },
       }),
     }),
+    unfavorite: builder.mutation({
+      query: (data) => ({
+        url: `/action/unfavorite/${data.type}/${data.id}`,
+        method: "DELETE",
+        body: data,
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      }),
+    }),
+    isFavorited: builder.query({
+      query: (param) => `/action/favorited/${param.type}/${param.id}`,
+      keepUnusedDataFor: 60,
+    }),
   }),
 });
 
-export const { useGetListByFilterQuery, useFavoriteMutation } = mainApi;
+export const {
+  useIsFavoritedQuery,
+  useGetListByFilterQuery,
+  useFavoriteMutation,
+  useUnfavoriteMutation,
+} = mainApi;

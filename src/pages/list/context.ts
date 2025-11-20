@@ -1,5 +1,6 @@
 import { createContext } from "react";
 import type { Data } from "./reducer";
+import type { mainApi } from "@/features/main/service";
 
 export interface List {
   name?: string;
@@ -8,6 +9,8 @@ export interface List {
   data: Data[] | null;
   isLoading: boolean;
   error: boolean;
+  handleFavorite: ReturnType<typeof mainApi.useFavoriteMutation>[0];
+  handleUnfavorite: ReturnType<typeof mainApi.useUnfavoriteMutation>[0];
 }
 
 const ListContext = createContext<List | null>(null);

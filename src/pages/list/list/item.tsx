@@ -2,10 +2,20 @@ import Card from "@/components/card";
 import Grid from "@/components/grid";
 import clsx from "clsx";
 import { Tooltip } from "radix-ui";
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+  type MouseEventHandler,
+} from "react";
 import { CiCircleInfo, CiHeart } from "react-icons/ci";
 import { Link } from "react-router";
+import ListContext from "../context";
+import { useIsFavoritedQuery } from "@/features/main/service";
 
 interface Props {
+  id: string;
   releaseYear?: number;
   name?: string;
   description?: string;
@@ -13,11 +23,41 @@ interface Props {
   className?: string;
 }
 const Item: React.FC<Props> = ({ ...props }) => {
-  console.log(props);
+  const context = useContext(ListContext);
+  if (!context) throw new Error("Item should be used within the ListContext");
+
+  const [isFavorited, setIsFavorited] = useState<boolean>(false);
+  const { data, isLoading, error } = useIsFavoritedQuery(
+    {
+      type: context.name,
+      id: props.id,
+    },
+    {
+      skip: !props.id || !context.name,
+    }
+  );
+
+  const toggleFavorite: MouseEventHandler<HTMLButtonElement> = useCallback(
+    (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+
+      if (isFavorited)
+        return context.handleUnfavorite({ type: context.name, id: props.id });
+
+      context.handleFavorite({ type: context.name, id: props.id });
+    },
+    [context, isFavorited, props]
+  );
+
+  useEffect(() => {
+    if (isLoading || error) return;
+    setIsFavorited(data.favorited);
+  }, [isLoading, error, setIsFavorited, data]);
 
   return (
     <Grid.Item>
-      <Link to="#" className={clsx("hover:cursor-auto", props.className)}>
+      <Link to="#" className={clsx("cursor-default", props.className)}>
         <Card.Root className="p-2 flex flex-col justify-between h-[350px] ">
           <Card.Header className="p-1 flex items-start justify-between gap-2">
             <span className="text-[10px] opacity-80">{props.releaseYear}</span>
@@ -25,8 +65,11 @@ const Item: React.FC<Props> = ({ ...props }) => {
               {props.name}
             </p>
             <button
-              onClick={(e) => e.stopPropagation()}
-              className="cursor-pointer hover:text-red-500 duration-150 transition"
+              onClick={toggleFavorite}
+              className={clsx(
+                "cursor-pointer hover:text-red-500 duration-150 transition z-10",
+                isFavorited && "text-red-500"
+              )}
             >
               <CiHeart size={25} />
             </button>
@@ -40,7 +83,10 @@ const Item: React.FC<Props> = ({ ...props }) => {
               <Tooltip.Root>
                 <Tooltip.Trigger
                   className="cursor-pointer"
-                  onClick={(e) => e.stopPropagation()}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                  }}
                   asChild
                 >
                   <button>
