@@ -4,7 +4,7 @@ import {
 } from "@/features/collection/service";
 import Header from "../header";
 import Skeleton from "../skeleton";
-import View from "../view";
+import View from "../../view";
 import Error from "../error";
 
 const Index = () => {

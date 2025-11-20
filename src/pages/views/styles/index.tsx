@@ -3,7 +3,7 @@ import {
   useGetStylesQuery,
 } from "@/features/style/service";
 import Header from "../header";
-import View from "../view";
+import View from "../../view";
 import Skeleton from "../skeleton";
 import Error from "../error";
 

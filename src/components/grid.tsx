@@ -9,10 +9,10 @@ import {
 interface Root extends HTMLAttributes<HTMLDivElement> {
   border?: boolean;
   gap?: number;
-  grid?: number;
+  grid: number;
   sm?: number;
-  md: number;
-  lg: number;
+  md?: number;
+  lg?: number;
 }
 
 interface Item extends HTMLAttributes<HTMLDivElement> {
@@ -29,6 +29,7 @@ const GridRoot: React.FC<Root> = ({
   className,
   border,
   children,
+  gap,
   grid,
   sm,
   md,
@@ -38,7 +39,7 @@ const GridRoot: React.FC<Root> = ({
     <Context.Provider value={{ border }}>
       <div
         className={clsx(
-          `grid grid-cols-${grid} sm:grid-cols-${sm} md:grid-cols-${md} lg:grid-cols-${lg}`,
+          `grid grid-cols-${grid} gap-${gap} sm:grid-cols-${sm} md:grid-cols-${md} lg:grid-cols-${lg}`,
           { "border-l border-t": border },
           className
         )}
@@ -53,7 +54,7 @@ const GridItem: React.FC<Item> = ({ className, children }) => {
   const context = useContext(Context);
   const { border } = context || {};
   return (
-    <div className={clsx("border-r border-b", { border: border }, className)}>
+    <div className={clsx({ "border-r border-b": border }, className)}>
       {children}
     </div>
   );

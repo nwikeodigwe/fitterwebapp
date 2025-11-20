@@ -1,10 +1,8 @@
-import Fieldset from "@/components/fieldset";
 import Panel from "@/components/panel";
 import { useState } from "react";
 import { CiCircleMore } from "react-icons/ci";
-import { FaArrowUp } from "react-icons/fa";
-import { IoPersonOutline } from "react-icons/io5";
 import Card from "./card";
+import Form from "./form";
 
 const Index = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -35,30 +33,7 @@ const Index = () => {
           <Card />
         </Panel.Content>
         <Panel.Footer>
-          <form>
-            <div className="flex items-start gap-2">
-              <span className="text-black bg-black/5 size-8 flex items-center justify-center flex-shrink-0">
-                <IoPersonOutline size={20} />
-              </span>
-              <Fieldset.Root className="grid grid-cols-[1fr_auto]  min-h-[32px] items-end gap-2 w-full p-2 border">
-                <Fieldset.Textarea
-                  className="w-full resize-none"
-                  placeholder="Type your comment..."
-                  onInput={(e) => {
-                    e.currentTarget.style.height = "auto";
-                    e.currentTarget.style.height =
-                      e.currentTarget.scrollHeight + "px";
-                  }}
-                />
-                <Fieldset.Button
-                  type="submit"
-                  className="bg-black text-white p-2 hover:bg-gray-800 transition-colors"
-                >
-                  <FaArrowUp size={12} />
-                </Fieldset.Button>
-              </Fieldset.Root>
-            </div>
-          </form>
+          <Form />
         </Panel.Footer>
       </Panel.Root>
     </>

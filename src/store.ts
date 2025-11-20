@@ -12,6 +12,7 @@ import { styleApi } from "./features/style/service";
 import { itemApi } from "./features/item/service";
 import { searchApi } from "./features/search/service";
 import { locationApi } from "./features/location/service";
+import { mainApi } from "./features/main/service";
 
 const persistConfig = {
   key: "root",
@@ -27,6 +28,7 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false,
     })
+      .concat(mainApi.middleware)
       .concat(userApi.middleware)
       .concat(authApi.middleware)
       .concat(brandApi.middleware)

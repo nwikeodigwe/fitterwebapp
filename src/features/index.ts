@@ -11,12 +11,14 @@ import { styleApi } from "./style/service";
 import { itemApi } from "./item/service";
 import { searchApi } from "./search/service";
 import { locationApi } from "./location/service";
+import { mainApi } from "./main/service";
 
 const rootReducer = combineReducers({
   auth: authReducer,
   user: userReducer,
   search: searchReducer,
   preference: preferenceReducer,
+  [mainApi.reducerPath]: mainApi.reducer,
   [userApi.reducerPath]: userApi.reducer,
   [authApi.reducerPath]: authApi.reducer,
   [brandApi.reducerPath]: brandApi.reducer,

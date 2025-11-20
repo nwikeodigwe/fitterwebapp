@@ -1,12 +1,12 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-export type authState = {
+export type Auth = {
   token: string | null;
   refreshToken: string | null;
   isAuthenticated: boolean;
 };
 
-const initialState: authState = {
+const initialState: Auth = {
   token: null,
   refreshToken: null,
   isAuthenticated: false,
