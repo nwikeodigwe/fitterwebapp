@@ -9,10 +9,10 @@ interface Props {
   releaseYear?: number;
   name?: string;
   description?: string;
-  tags: [{ name: string }];
+  tags?: [{ name: string }];
   className?: string;
 }
-const Item: React.FC<Props> = ({ tags, ...props }) => {
+const Item: React.FC<Props> = ({ ...props }) => {
   console.log(props);
 
   return (
@@ -55,11 +55,12 @@ const Item: React.FC<Props> = ({ tags, ...props }) => {
                   <p>{props.description}</p>
                   <Tooltip.Arrow className="fill-white" />
                   <div className="flex-wrap space-x-2">
-                    {tags.map((tag) => (
-                      <span className="text-[10px] text-black/50 hover:cursor-default duration-150 transition hover:underline hover:text-black/80">
-                        {tag.name}
-                      </span>
-                    ))}
+                    {props.tags &&
+                      props.tags.map((tag) => (
+                        <span className="text-[10px] text-black/50 hover:cursor-default duration-150 transition hover:underline hover:text-black/80">
+                          {tag.name}
+                        </span>
+                      ))}
                   </div>
                 </Tooltip.Content>
               </Tooltip.Root>

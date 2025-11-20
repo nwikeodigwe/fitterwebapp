@@ -2,19 +2,19 @@ import clsx from "clsx";
 import type { HTMLAttributes } from "react";
 
 interface Root extends HTMLAttributes<HTMLDivElement> {
-  className: string;
+  className?: string;
 }
 
 interface Header extends HTMLAttributes<HTMLDivElement> {
-  className: string;
+  className?: string;
 }
 
 interface Content extends HTMLAttributes<HTMLDivElement> {
-  className: string;
+  className?: string;
 }
 
 interface Footer extends HTMLAttributes<HTMLDivElement> {
-  className: string;
+  className?: string;
 }
 
 const CardRoot: React.FC<Root> = ({ className, children }) => {

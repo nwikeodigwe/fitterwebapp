@@ -45,7 +45,17 @@ export const mainApi = createApi({
         { type: param.toUpperCase() as any, id: "LIST" },
       ],
     }),
+    favorite: builder.mutation({
+      query: (data) => ({
+        url: `/action/favorite/${data.type}/${data.type}`,
+        method: "POST",
+        body: data,
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      }),
+    }),
   }),
 });
 
-export const { useGetListByFilterQuery } = mainApi;
+export const { useGetListByFilterQuery, useFavoriteMutation } = mainApi;
