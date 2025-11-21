@@ -1,7 +1,7 @@
 import Nav from "./nav";
 import Content from "./content";
 import ListContext from "./context";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useParams, useSearchParams } from "react-router";
 import {
   useFavoriteMutation,
   useUnfavoriteMutation,
@@ -16,6 +16,8 @@ type Param = "items" | "brands" | "styles" | "collections";
 const Index = () => {
   const navigate = useNavigate();
   const { entity } = useParams();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [searchParams, setSearchParams] = useSearchParams();
   const param = entity as Param;
   const validParam: Param[] = ["items", "brands", "styles", "collections"];
   if (!validParam.includes(param as Param)) {
@@ -26,12 +28,15 @@ const Index = () => {
   const [favorite] = useFavoriteMutation();
   const [unfavorite] = useUnfavoriteMutation();
 
+  const query = Object.fromEntries(searchParams.entries());
+
   const {
     data: response,
     isLoading,
     error,
   } = useGetListByFilterQuery({
     param,
+    ...query,
   });
 
   //   useEffect(() => {
@@ -59,12 +64,8 @@ const Index = () => {
     <>
       <ListContext.Provider
         value={{
-          name: state.name,
-          description: state.description,
-          count: state.count,
-          data: state.data,
-          isLoading: state.isLoading,
-          error: state.error,
+          ...state,
+          dispatch,
           handleFavorite: favorite,
           handleUnfavorite: unfavorite,
         }}

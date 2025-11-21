@@ -25,14 +25,13 @@ export const mainApi = createApi({
   tagTypes: ["Items", "Brands", "Styles", "Collection"],
   endpoints: (builder) => ({
     getListByFilter: builder.query({
-      query: ({ param, params }: { param: Param; params?: QueryParams }) => {
+      query: ({ param, ...query }: { param: Param; params?: QueryParams }) => {
         const searchParams = new URLSearchParams();
+        console.log(query);
 
-        if (params) {
-          Object.entries(params).forEach(([key, value]) => {
-            if (value !== undefined && value !== null && value !== "") {
-              searchParams.append(key, value.toString());
-            }
+        if (query) {
+          Object.entries(query).forEach(([key, value]) => {
+            searchParams.append(key, value.toString());
           });
         }
 

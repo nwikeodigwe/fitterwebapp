@@ -5,7 +5,7 @@ import Toast from "@/components/toast";
 
 const Layout = () => {
   return (
-    <div className="min-h-screen relative">
+    <div className="max-h-[95vh] relative">
       <Header />
       <Outlet />
       {/* <Footer /> */}

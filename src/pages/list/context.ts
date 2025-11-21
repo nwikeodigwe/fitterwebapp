@@ -1,5 +1,5 @@
-import { createContext } from "react";
-import type { Data } from "./reducer";
+import { createContext, type ActionDispatch } from "react";
+import type { Action, Data, Filter } from "./reducer";
 import type { mainApi } from "@/features/main/service";
 
 export interface List {
@@ -9,6 +9,8 @@ export interface List {
   data: Data[] | null;
   isLoading: boolean;
   error: boolean;
+  filters: Filter;
+  dispatch: ActionDispatch<[action: Action]>;
   handleFavorite: ReturnType<typeof mainApi.useFavoriteMutation>[0];
   handleUnfavorite: ReturnType<typeof mainApi.useUnfavoriteMutation>[0];
 }

@@ -67,7 +67,7 @@ const Item: React.FC<Props> = ({ ...props }) => {
             <button
               onClick={toggleFavorite}
               className={clsx(
-                "cursor-pointer hover:text-red-500 duration-150 transition z-10",
+                "cursor-pointer hover:text-red-500 duration-150 transition",
                 isFavorited && "text-red-500"
               )}
             >
@@ -95,7 +95,7 @@ const Item: React.FC<Props> = ({ ...props }) => {
                 </Tooltip.Trigger>
                 <Tooltip.Content
                   sideOffset={5}
-                  className="z-10 bg-white p-2 absolute w-[300px] border m-4 space-y-2"
+                  className="z-10 select-none bg-white p-2 absolute w-[300px] border m-4 space-y-2"
                 >
                   <h2 className="text-[10px]">Description</h2>
                   <p>{props.description}</p>
