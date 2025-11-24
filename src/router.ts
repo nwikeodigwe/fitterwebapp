@@ -11,14 +11,37 @@ const router = createBrowserRouter([
     path: "/",
     Component: Layout,
     children: [
-      { index: true, Component: Home },
-      { path: ":entity", Component: List },
-      { path: ":entity/:slug", Component: View },
-      { path: "logout", Component: Logout },
+      {
+        index: true,
+        Component: Home,
+      },
+      {
+        path: ":model",
+        children: [
+          {
+            index: true,
+            Component: List,
+          },
+          {
+            path: ":slug",
+            Component: View,
+          },
+        ],
+      },
+      {
+        path: "logout",
+        Component: Logout,
+      },
     ],
   },
-  { path: "not-found", Component: NotFound },
-  { path: "*", Component: NotFound },
+  {
+    path: "not-found",
+    Component: NotFound,
+  },
+  {
+    path: "*",
+    Component: NotFound,
+  },
 ]);
 
 export default router;

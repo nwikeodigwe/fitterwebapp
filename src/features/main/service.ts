@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-type Param = "items" | "brands" | "styles" | "collections";
+type Model = "items" | "brands" | "styles" | "collections";
 
 interface QueryParams {
   orderBy?: string;
@@ -25,55 +25,74 @@ export const mainApi = createApi({
   tagTypes: ["Items", "Brands", "Styles", "Collection"],
   endpoints: (builder) => ({
     getListByFilter: builder.query({
-      query: ({ param, ...query }: { param: Param; params?: QueryParams }) => {
+      query: ({ model, ...queries }: { model: Model; queries?: QueryParams }) => {
         const searchParams = new URLSearchParams();
-        console.log(query);
 
-        if (query) {
-          Object.entries(query).forEach(([key, value]) => {
-            searchParams.append(key, value.toString());
+        if (queries) {
+          Object.entries(queries).forEach(([key, value]) => {
+            if (value) searchParams.append(key, value.toString());
           });
         }
 
-        const queryString = searchParams.toString();
-        return `/${param}${queryString ? `?${queryString}` : ""}`;
+        const urlQueryString = searchParams.toString();
+        return `/${model}${urlQueryString ? `?${urlQueryString}` : ""}`;
       },
       keepUnusedDataFor: 60,
-      providesTags: (_result, _error, { param }) => [
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        { type: param.toUpperCase() as any, id: "LIST" },
-      ],
+    }),
+    getListing: builder.query({
+      query: ({ model, slug }) => `${model}/${slug}`,
+      keepUnusedDataFor: 60,
     }),
     favorite: builder.mutation({
       query: (data) => ({
-        url: `/action/favorite/${data.type}/${data.id}`,
+        url: `/${data.type}/${data.id}`,
         method: "POST",
         body: data,
+        // Should add to baseQuery
         headers: {
           Authorization: `Bearer ${data.token}`,
         },
       }),
     }),
     unfavorite: builder.mutation({
-      query: (data) => ({
-        url: `/action/unfavorite/${data.type}/${data.id}`,
+      query: ({ type, id, token }) => ({
+        url: `/${type}/${id}`,
         method: "DELETE",
-        body: data,
         headers: {
-          Authorization: `Bearer ${data.token}`,
+          Authorization: `Bearer ${token}`,
         },
       }),
     }),
     isFavorited: builder.query({
-      query: (param) => `/action/favorited/${param.type}/${param.id}`,
+      query: ({ type, id, token }) => ({
+        url: `/${type}/${id}/favorited`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+      keepUnusedDataFor: 60,
+    }),
+    getUpvoteCount: builder.query({
+      query: ({ model, id }) => `/vote/${model}/${id}/upvote`,
+      keepUnusedDataFor: 60,
+    }),
+    getDownvoteCount: builder.query({
+      query: ({ model, id }) => `/vote/${model}/${id}/downvote`,
+      keepUnusedDataFor: 60,
+    }),
+    getCommentCount: builder.query({
+      query: ({ model, id }) => `/comment/${model}/${id}/count`,
       keepUnusedDataFor: 60,
     }),
   }),
 });
 
 export const {
-  useIsFavoritedQuery,
+  useGetListingQuery,
   useGetListByFilterQuery,
+  useGetUpvoteCountQuery,
+  useGetDownvoteCountQuery,
   useFavoriteMutation,
+  useIsFavoritedQuery,
   useUnfavoriteMutation,
 } = mainApi;

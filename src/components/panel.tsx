@@ -94,6 +94,7 @@ const PanelRoot: React.FC<Root> = ({
   );
 
   const handlePointerDown: PointerEventHandler<HTMLDivElement> = (e) => {
+    e.stopPropagation();
     const target = e.currentTarget;
     target.setPointerCapture(e.pointerId);
     target.classList.add("z-20");
@@ -101,6 +102,7 @@ const PanelRoot: React.FC<Root> = ({
   };
 
   const handlePointerUp: PointerEventHandler<HTMLDivElement> = (e) => {
+    e.stopPropagation();
     // e.currentTarget.classList.remove("z-30");
     if ((e.target as HTMLElement).closest("button")) {
       return;
@@ -112,24 +114,27 @@ const PanelRoot: React.FC<Root> = ({
   };
 
   const handlePointerMove: PointerEventHandler<HTMLDivElement> = (e) => {
+    e.stopPropagation();
     if (isDragging) handleDrag(e.movementX, e.movementY);
   };
 
   return (
-    <Context.Provider value={{ isDraggable, isClosable, handleClose }}>
-      <div
-        ref={panelRef}
-        onPointerDown={isDraggable ? handlePointerDown : undefined}
-        onPointerUp={isDraggable ? handlePointerUp : undefined}
-        onPointerMove={isDraggable ? handlePointerMove : undefined}
-        style={{
-          transform: `translateX(${translate.x}px) translateY(${translate.y}px)`,
-        }}
-        className={clsx(className, !open && "hidden")}
-      >
-        {children}
-      </div>
-    </Context.Provider>
+    <>
+      <Context.Provider value={{ isDraggable, isClosable, handleClose }}>
+        <div
+          ref={panelRef}
+          onPointerDown={isDraggable ? handlePointerDown : undefined}
+          onPointerUp={isDraggable ? handlePointerUp : undefined}
+          onPointerMove={isDraggable ? handlePointerMove : undefined}
+          style={{
+            transform: `translateX(${translate.x}px) translateY(${translate.y}px)`,
+          }}
+          className={clsx(className, !open && "hidden")}
+        >
+          {children}
+        </div>
+      </Context.Provider>
+    </>
   );
 };
 
@@ -181,4 +186,5 @@ const Panel = {
   Content: PanelContent,
   Footer: PanelFooter,
 };
+
 export default Panel;

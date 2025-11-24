@@ -25,7 +25,7 @@ const Tags = () => {
         <ul className="grid grid-cols-4 justify-between mt-1">
           {tags.map((tag) => (
             <li key={tag}>
-              <button onClick={() => toggleFilter({tag})} className="hover:underline">home</button>
+              <button onClick={() => toggleFilter({tags: tag})} className="hover:underline">{tag}</button>
             </li>
           ))}
         </ul>

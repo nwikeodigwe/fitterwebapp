@@ -3,8 +3,12 @@ import { useState } from "react";
 import { CiCircleMore } from "react-icons/ci";
 import Card from "./card";
 import Form from "./form";
+import clsx from "clsx";
 
-const Index = () => {
+interface Props {
+  count: number;
+}
+const Index: React.FC<Props> = ({ count }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <>
@@ -13,7 +17,11 @@ const Index = () => {
         className="p-2 border-r border-b flex items-center gap-1"
       >
         <CiCircleMore size={20} />
-        <span className="opacity-50 text-[10px]">1.4k</span>
+        <span
+          className={clsx("opacity-50 text-[10px]", count === 0 && "hidden")}
+        >
+          {count}
+        </span>
       </button>
       <Panel.Root
         open={isOpen}

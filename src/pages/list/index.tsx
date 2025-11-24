@@ -2,25 +2,21 @@ import Nav from "./nav";
 import Content from "./content";
 import ListContext from "./context";
 import { useNavigate, useParams, useSearchParams } from "react-router";
-import {
-  useFavoriteMutation,
-  useUnfavoriteMutation,
-  useGetListByFilterQuery,
-} from "@/features/main/service";
 import summary from "./data.json";
 import reducer, { initialState } from "./reducer";
 import { useEffect, useReducer } from "react";
+import { useFavoriteMutation, useGetListByFilterQuery, useUnfavoriteMutation } from "@/features/main/service";
 
-type Param = "items" | "brands" | "styles" | "collections";
+export type Model = "items" | "brands" | "styles" | "collections";
 
 const Index = () => {
   const navigate = useNavigate();
-  const { entity } = useParams();
+  const { model } = useParams();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [searchParams, setSearchParams] = useSearchParams();
-  const param = entity as Param;
-  const validParam: Param[] = ["items", "brands", "styles", "collections"];
-  if (!validParam.includes(param as Param)) {
+  const param = model as Model;
+  const validParam: Model[] = ["items", "brands", "styles", "collections"];
+  if (!validParam.includes(param as Model)) {
     navigate("/not-found");
   }
 
@@ -35,13 +31,9 @@ const Index = () => {
     isLoading,
     error,
   } = useGetListByFilterQuery({
-    param,
+    model: param,
     ...query,
   });
-
-  //   useEffect(() => {
-  //     dispatch({ type: "SET_DATA", payload: [] });
-  //   }, [param]);
 
   useEffect(() => {
     dispatch({ type: "SET_LOADING", payload: true });
