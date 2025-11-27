@@ -1,4 +1,5 @@
 import type { Reducer } from "react";
+import type { Model } from ".";
 
 export type Data = {
   id: string;
@@ -12,8 +13,7 @@ export type Filter = Record<string, string>;
 export type Action =
   | { type: "SET_LOADING"; payload: boolean }
   | { type: "SET_ERROR"; payload: boolean }
-  | { type: "SET_NAME"; payload: string }
-  | { type: "SET_NAME"; payload: string }
+  | { type: "SET_NAME"; payload: Model }
   | { type: "SET_COUNT"; payload: number }
   | { type: "SET_DATA"; payload: Data[] }
   | { type: "SET_FILTER"; payload: Filter }
@@ -25,7 +25,7 @@ export type Action =
 export interface State {
   isLoading: boolean;
   error: boolean;
-  name?: string;
+  name?: Model;
   description?: string;
   count: number;
   data: Data[] | null;
@@ -91,7 +91,7 @@ const reducer: Reducer<State, Action> = (state, action) => {
         ...state,
         filters: Object.fromEntries(
           Object.entries(state.filters).filter(
-            ([key]) => key !== action.payload // I want the key to this action.payload not value
+            ([key]) => key !== action.payload
           )
         ),
       };

@@ -1,7 +1,7 @@
 import Carousel from "@/components/carousel";
 import { HiArrowLongLeft, HiArrowLongRight } from "react-icons/hi2";
 
-const content = () => {
+const Content = () => {
   const items = ["first", "second", "third", "fouth", "fifth"];
   const handleNavigate = (direction: "left" | "right" | undefined) => {
     console.log(`Navigating ${direction}`);
@@ -15,7 +15,7 @@ const content = () => {
       <Carousel.Content>
         {items.map((item, index) => (
           <Carousel.Item key={index}>
-            <div className="flex items-center size-3/10 justify-center bg-black text-white rounded-lg">
+            <div className="flex items-center h-100 w-[700px] justify-center bg-black text-white">
               {item}
             </div>
           </Carousel.Item>
@@ -36,4 +36,4 @@ const content = () => {
   );
 };
 
-export default content;
+export default Content;

@@ -11,8 +11,8 @@ import {
 } from "react";
 import { CiCircleInfo, CiHeart } from "react-icons/ci";
 import { Link } from "react-router";
-import ListContext from "../context";
 import { useIsFavoritedQuery } from "@/features/main/service";
+import Context from "../context";
 
 interface Props {
   id: string;
@@ -23,17 +23,21 @@ interface Props {
   className?: string;
 }
 const Item: React.FC<Props> = ({ ...props }) => {
-  const context = useContext(ListContext);
-  if (!context) throw new Error("Item should be used within the ListContext");
+  const context = useContext(Context);
+
+  if (!context)
+    throw new Error(
+      "List component must be used within the List context provider"
+    );
 
   const [isFavorited, setIsFavorited] = useState<boolean>(false);
   const { data, isLoading, error } = useIsFavoritedQuery(
     {
-      type: context.name,
+      model: context.name!,
       id: props.id,
     },
     {
-      skip: !props.id || !context.name,
+      skip: !props.id || !context?.name,
     }
   );
 
@@ -43,11 +47,11 @@ const Item: React.FC<Props> = ({ ...props }) => {
       e.preventDefault();
 
       if (isFavorited)
-        return context.handleUnfavorite({ type: context.name, id: props.id });
+        return context?.unfavorite({ model: context.name!, id: props.id });
 
-      context.handleFavorite({ type: context.name, id: props.id });
+      return context?.favorite({ model: context.name!, id: props.id });
     },
-    [context, isFavorited, props]
+    [isFavorited, props, context]
   );
 
   useEffect(() => {

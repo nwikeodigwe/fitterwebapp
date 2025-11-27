@@ -1,6 +1,8 @@
 import { createBrowserRouter } from "react-router";
 import Layout from "@/pages";
+import ProfileLayout from "@/pages/profile";
 import Home from "@/pages/home";
+import Profile from "@/pages/profile";
 import Logout from "@/pages/logout";
 import NotFound from "@/pages/notfound";
 import List from "@/pages/list";
@@ -27,6 +29,11 @@ const router = createBrowserRouter([
             Component: View,
           },
         ],
+      },
+      {
+        path: "/profile",
+        Component: ProfileLayout,
+        children: [{ index: true, Component: Profile }],
       },
       {
         path: "logout",

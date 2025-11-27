@@ -1,11 +1,15 @@
 import Nav from "./nav";
 import Content from "./content";
-import ListContext from "./context";
-import { useNavigate, useParams, useSearchParams } from "react-router";
 import summary from "./data.json";
-import reducer, { initialState } from "./reducer";
+import ListContext from "./context";
 import { useEffect, useReducer } from "react";
-import { useFavoriteMutation, useGetListByFilterQuery, useUnfavoriteMutation } from "@/features/main/service";
+import reducer, { initialState } from "./reducer";
+import { useNavigate, useParams, useSearchParams } from "react-router";
+import {
+  useFavoriteMutation,
+  useGetListByFilterQuery,
+  useUnfavoriteMutation,
+} from "@/features/main/service";
 
 export type Model = "items" | "brands" | "styles" | "collections";
 
@@ -13,7 +17,7 @@ const Index = () => {
   const navigate = useNavigate();
   const { model } = useParams();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, _setSearchParams] = useSearchParams();
   const param = model as Model;
   const validParam: Model[] = ["items", "brands", "styles", "collections"];
   if (!validParam.includes(param as Model)) {
@@ -31,23 +35,24 @@ const Index = () => {
     isLoading,
     error,
   } = useGetListByFilterQuery({
-    model: param,
+    model: param!,
     ...query,
   });
 
   useEffect(() => {
     dispatch({ type: "SET_LOADING", payload: true });
     dispatch({ type: "SET_DATA", payload: [] });
-    dispatch({ type: "SET_NAME", payload: param });
-    dispatch({ type: "SET_DESCRIPTION", payload: summary[param] });
+    dispatch({ type: "SET_NAME", payload: param! });
+    dispatch({ type: "SET_DESCRIPTION", payload: summary[param!] });
     dispatch({ type: "SET_COUNT", payload: 0 });
     if (error) {
       dispatch({ type: "SET_LOADING", payload: false });
       dispatch({ type: "SET_ERROR", payload: true });
     }
     if (isLoading || error) return;
+    console.log({ response });
     dispatch({ type: "SET_ERROR", payload: false });
-    dispatch({ type: "SET_DATA", payload: response?.[param] });
+    dispatch({ type: "SET_DATA", payload: response?.[param!] });
     dispatch({ type: "SET_COUNT", payload: response.count });
     dispatch({ type: "SET_LOADING", payload: false });
   }, [isLoading, error, param, response]);
@@ -58,8 +63,8 @@ const Index = () => {
         value={{
           ...state,
           dispatch,
-          handleFavorite: favorite,
-          handleUnfavorite: unfavorite,
+          favorite,
+          unfavorite,
         }}
       >
         <div className="view-grid">

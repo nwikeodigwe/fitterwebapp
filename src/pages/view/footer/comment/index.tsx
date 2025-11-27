@@ -1,15 +1,43 @@
 import Panel from "@/components/panel";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CiCircleMore } from "react-icons/ci";
-import Card from "./card";
+import List from "./list";
 import Form from "./form";
 import clsx from "clsx";
+import Empty from "./empty";
+import { useGetCommentsQuery } from "@/features/main/service";
+import Context from "../../context";
+import Skeleton from "./skeleton";
 
 interface Props {
   count: number;
 }
+
+export type Comment = {
+  id: string;
+  author: { name: string; avatar: { image: { url: string } } };
+  content: string;
+  replies: Comment[];
+};
 const Index: React.FC<Props> = ({ count }) => {
+  const [comments, setComments] = useState<Comment[]>([]);
+  const context = useContext(Context);
+  if (!context)
+    throw new Error(
+      "Comments component must be used within the comment context provider"
+    );
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const { data, isLoading, error } = useGetCommentsQuery({
+    model: context.model!,
+    id: context.data[context.index]?.id,
+  });
+
+  useEffect(() => {
+    if (isLoading || error) return;
+    setComments(data.comments);
+  }, [isLoading, error, data]);
+
   return (
     <>
       <button
@@ -34,11 +62,9 @@ const Index: React.FC<Props> = ({ count }) => {
           <h2 className="text-[10px]">Comments</h2>
         </Panel.Header>
         <Panel.Content className="p-3 space-y-3">
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+          <Empty show={!!comments} />
+          <List data={comments} />
+          <Skeleton show={isLoading} />
         </Panel.Content>
         <Panel.Footer>
           <Form />

@@ -1,17 +1,17 @@
-import { useContext, useEffect } from "react";
-import ListContext from "../context";
+import clsx from "clsx";
+import Tags from "./tags";
 import Brands from "./brands";
 import Colors from "./colors";
-import Context from "./context";
 import Gender from "./gender";
+import Context from "./context";
+import ListContext from "../context";
 import ReleaseYear from "./releaseYear";
-import Tags from "./tags";
+import { useContext, useEffect } from "react";
 import { useSearchParams } from "react-router";
-import clsx from "clsx";
 
 const Index = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [_searchParams, setSearchParams] = useSearchParams();
   const context = useContext(ListContext);
   if (!context)
     throw new Error(

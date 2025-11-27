@@ -19,7 +19,7 @@ const Collections = ({ data, isLoading, error }: Props) => {
         {tag?.collections.map((collection, i) => (
           <li key={i}>
             <Link
-              to={`/brands/${collection.name
+              to={`/collections/${collection.name
                 .toLowerCase()
                 .replace(/\s+/g, "-")
                 .replace(/[^a-z0-9-]/g, "")}`}

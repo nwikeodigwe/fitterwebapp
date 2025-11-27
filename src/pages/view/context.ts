@@ -24,7 +24,7 @@ export type Data = {
 export interface Listing {
   data: Data[];
   index: number;
-  model?: Model;
+  model: Model;
   slug?: string;
   handleNavigate: (direction: "left" | "right") => void;
   toggleFavorite: () => void;

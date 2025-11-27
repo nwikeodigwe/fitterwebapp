@@ -8,18 +8,15 @@ import Account from "./account";
 import Create from "./create";
 import Search from "./search";
 import { useEffect, useState } from "react";
-import { useGetBrandTagsQuery } from "@/features/brand/service";
-import { useGetCollectionTagsQuery } from "@/features/collection/service";
-import { useGetItemTagsQuery } from "@/features/item/service";
-
+import { useGetModelTagsQuery } from "@/features/main/service";
 import type { Tag as Brand } from "@/types/brands/tags";
 import type { Tag as Style } from "@/types/styles/tags";
 import type { Tag as Collection } from "@/types/collections/tags";
 import type { Tag as Item } from "@/types/items/tags";
-import { useGetStyleTagsQuery } from "@/features/style/service";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/store";
 import clsx from "clsx";
+import Skeleton from "./skeleton";
 
 const Index = () => {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
@@ -34,25 +31,25 @@ const Index = () => {
     data: tagsAndBrand,
     isLoading: brandsIsLoading,
     error: brandsError,
-  } = useGetBrandTagsQuery({});
+  } = useGetModelTagsQuery({ model: "brands" });
 
   const {
     data: tagsAndCollection,
     isLoading: collectionIsLoading,
     error: collectionError,
-  } = useGetCollectionTagsQuery({ refetchOnMountOrArgChange: true });
+  } = useGetModelTagsQuery({ model: "collections" });
 
   const {
     data: tagsAndStyle,
     isLoading: styleIsLoading,
     error: styleError,
-  } = useGetStyleTagsQuery({});
+  } = useGetModelTagsQuery({ model: "styles" });
 
   const {
     data: tagsAndItem,
     isLoading: itemIsLoading,
     error: itemError,
-  } = useGetItemTagsQuery({});
+  } = useGetModelTagsQuery({ model: "items" });
 
   useEffect(() => {
     if (tagsAndBrand) setBrandData(tagsAndBrand.tags);
@@ -95,6 +92,7 @@ const Index = () => {
                 isLoading={brandsIsLoading}
                 error={brandsError}
               />
+              <Skeleton show={brandsIsLoading} row={5} col={4} />
             </NavigationMenu.Content>
           </NavigationMenu.Item>
           <NavigationMenu.Item>
@@ -107,6 +105,7 @@ const Index = () => {
                 isLoading={collectionIsLoading}
                 error={collectionError}
               />
+              <Skeleton show={collectionIsLoading} row={5} col={4} />
             </NavigationMenu.Content>
           </NavigationMenu.Item>
           <NavigationMenu.Item>
@@ -119,6 +118,7 @@ const Index = () => {
                 isLoading={styleIsLoading}
                 error={styleError}
               />
+              <Skeleton show={styleIsLoading} row={5} col={4} />
             </NavigationMenu.Content>
           </NavigationMenu.Item>
           <NavigationMenu.Item>
@@ -131,6 +131,7 @@ const Index = () => {
                 isLoading={itemIsLoading}
                 error={itemError}
               />
+              <Skeleton show={itemIsLoading} row={5} col={4} />
             </NavigationMenu.Content>
           </NavigationMenu.Item>
         </div>

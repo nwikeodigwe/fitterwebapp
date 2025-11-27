@@ -6,8 +6,8 @@ const useList = () => {
   if (context === undefined) {
     throw new Error("useCarousel must be used within a List Component");
   }
-  const { count, name } = context || {};
-  return { count, name };
+
+  return { ...context };
 };
 
 export default useList;

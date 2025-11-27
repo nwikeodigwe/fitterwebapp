@@ -7,6 +7,7 @@ import {
   type ReactNode,
   type MouseEventHandler,
   type PointerEventHandler,
+  type HTMLAttributes,
 } from "react";
 import clsx from "clsx";
 
@@ -39,6 +40,14 @@ interface Header {
 interface Content {
   className?: string;
   children: ReactNode;
+}
+
+interface Title extends HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode;
+}
+
+interface Description extends HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode;
 }
 
 interface Footer {
@@ -159,6 +168,14 @@ const PanelHeader: React.FC<Header> = ({ className, children }) => {
   );
 };
 
+const PanelTitle: React.FC<Title> = ({ children, className }) => {
+  return <div className={clsx(className)}>{children}</div>;
+};
+
+const PanelDescription: React.FC<Description> = ({ children, className }) => {
+  return <div className={clsx(className)}>{children}</div>;
+};
+
 const PanelContent: React.FC<Content> = ({ className, children }) => {
   return <div className={clsx("relative", className)}>{children}</div>;
 };
@@ -176,14 +193,19 @@ const PanelFooter: React.FC<Footer> = ({ className, children }) => {
   );
 };
 
-PanelRoot.displayName = "Panel";
-PanelHeader.displayName = "Header";
-PanelContent.displayName = "Content";
-PanelFooter.displayName = "Footer";
+PanelRoot.displayName = "PanelRoot";
+PanelHeader.displayName = "PanelHeader";
+PanelContent.displayName = "PanelContent";
+PanelTitle.displayName = "PanelTitle";
+PanelDescription.displayName = "PanelDescription";
+PanelFooter.displayName = "PanelFooter";
+
 const Panel = {
   Root: PanelRoot,
   Header: PanelHeader,
   Content: PanelContent,
+  Title: PanelTitle,
+  Description: PanelDescription,
   Footer: PanelFooter,
 };
 

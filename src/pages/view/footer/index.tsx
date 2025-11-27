@@ -28,19 +28,19 @@ const Index = () => {
     data: upvote,
     isLoading: isUpvoteCountLoading,
     error: UpvoteCountError,
-  } = useGetUpvoteCountQuery({ model, id: data[index]?.id });
+  } = useGetUpvoteCountQuery({ model: model!, id: data[index]?.id });
 
   const {
     data: downvote,
     isLoading: isDownvoteCountLoading,
     error: DownvoteCountError,
-  } = useGetDownvoteCountQuery({ model, id: data[index]?.id });
+  } = useGetDownvoteCountQuery({ model: model!, id: data[index]?.id });
 
   const {
     data: comment,
     isLoading: isCommentCountLoading,
     error: CommentCountError,
-  } = useGetUpvoteCountQuery({ model, id: data[index]?.id });
+  } = useGetUpvoteCountQuery({ model: model!, id: data[index]?.id });
 
   useEffect(() => {
     if (isUpvoteCountLoading || UpvoteCountError) return;

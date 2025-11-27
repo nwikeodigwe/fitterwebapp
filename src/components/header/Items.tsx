@@ -19,7 +19,7 @@ const Items = ({ data, isLoading, error }: Props) => {
         {tag?.items.map((item, i) => (
           <li key={i}>
             <Link
-              to={`/brands/${item.name
+              to={`/items/${item.name
                 .toLowerCase()
                 .replace(/\s+/g, "-")
                 .replace(/[^a-z0-9-]/g, "")}`}
